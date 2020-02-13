@@ -10,6 +10,8 @@ import UIKit
 
 class BookmarkTableViewController: UITableViewController {
 
+    let defaults = UserDefaults.standard
+    
     var bookmarkArray = ["http://google.com","http://daum.net","http://naver.com"]
     
     override func viewDidLoad() {
@@ -42,16 +44,21 @@ class BookmarkTableViewController: UITableViewController {
     
 
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
-        print("북마크 추가 버튼이 클릭 되었다.")
+        
+        var urlTextfield = UITextField()
         
         let alert = UIAlertController(title: "북마크 추가", message: nil, preferredStyle: .alert)
         
         let cancelAction = UIAlertAction(title: "취소", style: .destructive) { (action) in
-            print("취소 버튼이 클릭 되었다.")
+            
         }
         
         let addAction = UIAlertAction(title: "저장", style: .default) { (action) in
-            print("저장 버튼이 클릭 되었다.")
+            if let newItem = urlTextfield.text {
+                self.bookmarkArray.append(newItem)
+            }
+            self.defaults.set(self.bookmarkArray, forKey: "bookmark")
+            self.tableView.reloadData()
         }
         
         alert.addTextField { (alertNameTextfield) in
@@ -60,6 +67,7 @@ class BookmarkTableViewController: UITableViewController {
         
         alert.addTextField { (alertURLTextfield) in
             alertURLTextfield.placeholder = "URL을 입력해 주세요."
+            urlTextfield = alertURLTextfield
         }
         
         alert.addAction(cancelAction)
