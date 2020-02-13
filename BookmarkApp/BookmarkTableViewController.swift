@@ -14,7 +14,7 @@ class BookmarkTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.title = "북마크"
     }
 
     // MARK: - Table view data source
