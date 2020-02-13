@@ -6,7 +6,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--북마크-->
+        <!--Bookmark Table View Controller-->
         <scene sceneID="5X5-9o-PJQ">
             <objects>
                 <tableViewController id="oAk-2b-H1F" customClass="BookmarkTableViewController" customModule="BookmarkApp" customModuleProvider="target" sceneMemberID="viewController">
@@ -45,7 +45,7 @@
                             <outlet property="delegate" destination="oAk-2b-H1F" id="KYL-1l-pa6"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="북마크" id="Mzm-1P-vbv">
+                    <navigationItem key="navigationItem" id="Mzm-1P-vbv">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="XWJ-lR-Mj7">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
