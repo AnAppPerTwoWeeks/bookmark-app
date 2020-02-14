@@ -10,7 +10,8 @@ import UIKit
 
 class BookmarkTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var bookmarkLabel: UILabel!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var urlLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -19,7 +20,6 @@ class BookmarkTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
         // Configure the view for the selected state
     }
 

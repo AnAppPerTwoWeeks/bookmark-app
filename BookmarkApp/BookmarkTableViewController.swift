@@ -10,7 +10,9 @@ import UIKit
 
 class BookmarkTableViewController: UITableViewController {
 
-    var bookmarkArray = ["http://google.com","http://daum.net","http://naver.com"]
+    let defaults = UserDefaults.standard
+    
+    var bookmarkArray = [BookmarkVO]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,7 +34,8 @@ class BookmarkTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! BookmarkTableViewCell
-        cell.bookmarkLabel.text = bookmarkArray[indexPath.row]
+        cell.nameLabel.text = bookmarkArray[indexPath.row].name
+        cell.urlLabel.text = bookmarkArray[indexPath.row].url
         return cell
     }
     
@@ -42,24 +45,41 @@ class BookmarkTableViewController: UITableViewController {
     
 
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
-        print("북마크 추가 버튼이 클릭 되었다.")
+        
+        var nameTextfield = UITextField()
+        var urlTextfield = UITextField()
         
         let alert = UIAlertController(title: "북마크 추가", message: nil, preferredStyle: .alert)
         
         let cancelAction = UIAlertAction(title: "취소", style: .destructive) { (action) in
-            print("취소 버튼이 클릭 되었다.")
         }
         
         let addAction = UIAlertAction(title: "저장", style: .default) { (action) in
-            print("저장 버튼이 클릭 되었다.")
+           
+            if let nameText = nameTextfield.text, !nameText.isEmpty {
+                if let urlText = urlTextfield.text, !urlText.isEmpty {
+                    let bookmarkItem = BookmarkVO(name: nameText, url: urlText)
+                    self.bookmarkArray.append(bookmarkItem)
+                }
+            }
+            
+            if let encode = try? JSONEncoder().encode(self.bookmarkArray) {
+                    self.defaults.set(encode, forKey: "bookmark")
+
+            }
+            
+            self.tableView.reloadData()
+            
         }
         
         alert.addTextField { (alertNameTextfield) in
             alertNameTextfield.placeholder = "북마크 이름을 입력해 주세요."
+            nameTextfield = alertNameTextfield
         }
         
         alert.addTextField { (alertURLTextfield) in
             alertURLTextfield.placeholder = "URL을 입력해 주세요."
+            urlTextfield = alertURLTextfield
         }
         
         alert.addAction(cancelAction)
