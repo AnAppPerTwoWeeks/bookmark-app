@@ -15,28 +15,41 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="skW-AY-38g" customClass="BookmarkTableViewCell" customModule="BookmarkApp" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="414" height="43"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="86" id="skW-AY-38g" customClass="BookmarkTableViewCell" customModule="BookmarkApp" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="414" height="86"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="skW-AY-38g" id="guU-M0-4Ff">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="86"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MsL-YF-dh7">
-                                            <rect key="frame" x="20" y="11" width="42" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="22" translatesAutoresizingMaskIntoConstraints="NO" id="eok-pr-0KL">
+                                            <rect key="frame" x="20" y="11" width="374" height="64"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ejh-9X-d78">
+                                                    <rect key="frame" x="0.0" y="0.0" width="374" height="21.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CTZ-ee-rgE">
+                                                    <rect key="frame" x="0.0" y="43.5" width="374" height="20.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </stackView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="bottomMargin" secondItem="MsL-YF-dh7" secondAttribute="bottom" id="ETF-vt-yDH"/>
-                                        <constraint firstItem="MsL-YF-dh7" firstAttribute="leading" secondItem="guU-M0-4Ff" secondAttribute="leadingMargin" id="Zg3-vT-GYY"/>
-                                        <constraint firstItem="MsL-YF-dh7" firstAttribute="top" secondItem="guU-M0-4Ff" secondAttribute="topMargin" id="kwx-Eu-25s"/>
+                                        <constraint firstItem="eok-pr-0KL" firstAttribute="top" secondItem="guU-M0-4Ff" secondAttribute="topMargin" id="5dZ-vH-RFI"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="eok-pr-0KL" secondAttribute="trailing" id="8zz-AQ-k8g"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="eok-pr-0KL" secondAttribute="bottom" id="L3w-Mo-gW9"/>
+                                        <constraint firstItem="eok-pr-0KL" firstAttribute="leading" secondItem="guU-M0-4Ff" secondAttribute="leadingMargin" id="rdV-Fi-Xo1"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="bookmarkLabel" destination="MsL-YF-dh7" id="aTc-8Y-flP"/>
+                                    <outlet property="nameLabel" destination="ejh-9X-d78" id="mtn-md-44S"/>
+                                    <outlet property="urlLabel" destination="CTZ-ee-rgE" id="jap-od-GmY"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
