@@ -17,6 +17,13 @@ class BookmarkTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "북마크"
+        
+        if let savedBookmark = defaults.object(forKey: "bookmark") as? Data {
+            if let loadedBookmark = try? JSONDecoder().decode([BookmarkVO].self, from: savedBookmark) {
+                bookmarkArray = loadedBookmark
+            }
+        }
+
     }
 
     // MARK: - Table view data source
