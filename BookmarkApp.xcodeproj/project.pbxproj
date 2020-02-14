@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D378BA1223F6861300951FC3 /* BookmarkVO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D378BA1123F6861300951FC3 /* BookmarkVO.swift */; };
 		D3952A9623F152BB009FAC83 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3952A9523F152BB009FAC83 /* AppDelegate.swift */; };
 		D3952A9823F152BB009FAC83 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3952A9723F152BB009FAC83 /* SceneDelegate.swift */; };
 		D3952A9D23F152BB009FAC83 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3952A9B23F152BB009FAC83 /* Main.storyboard */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D378BA1123F6861300951FC3 /* BookmarkVO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkVO.swift; sourceTree = "<group>"; };
 		D3952A9223F152BB009FAC83 /* BookmarkApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BookmarkApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3952A9523F152BB009FAC83 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D3952A9723F152BB009FAC83 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -63,6 +65,7 @@
 				D3952A9B23F152BB009FAC83 /* Main.storyboard */,
 				D3EB147423F29FEB004A1073 /* BookmarkTableViewCell.swift */,
 				D3EB147223F29F3C004A1073 /* BookmarkTableViewController.swift */,
+				D378BA1123F6861300951FC3 /* BookmarkVO.swift */,
 				D3952A9E23F152BC009FAC83 /* Assets.xcassets */,
 				D3952AA023F152BC009FAC83 /* LaunchScreen.storyboard */,
 				D3952AA323F152BC009FAC83 /* Info.plist */,
@@ -142,6 +145,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D3EB147323F29F3C004A1073 /* BookmarkTableViewController.swift in Sources */,
+				D378BA1223F6861300951FC3 /* BookmarkVO.swift in Sources */,
 				D3952A9623F152BB009FAC83 /* AppDelegate.swift in Sources */,
 				D3952A9823F152BB009FAC83 /* SceneDelegate.swift in Sources */,
 				D3EB147523F29FEB004A1073 /* BookmarkTableViewCell.swift in Sources */,
