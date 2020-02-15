@@ -101,6 +101,9 @@ class BookmarkTableViewController: UITableViewController {
         
         alert.addTextField { (alertURLTextfield) in
             alertURLTextfield.placeholder = "URL을 입력해 주세요."
+            if let copiedText = UIPasteboard.general.string {
+                alertURLTextfield.text = copiedText
+            }
             urlTextfield = alertURLTextfield
         }
         
