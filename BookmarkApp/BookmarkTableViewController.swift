@@ -45,7 +45,11 @@ class BookmarkTableViewController: UITableViewController {
             self.setBookmarkUserDeafaults()
         }
         
-        let fullSwipeAction = UISwipeActionsConfiguration(actions: [removeCell])
+        let editCell = UIContextualAction(style: .normal, title: "편집") { (UIContextualAction, UIView, (Bool) -> Void) in
+            self.performSegue("editSegue", self.bookmarkArray[indexPath.row])
+        }
+        
+        let fullSwipeAction = UISwipeActionsConfiguration(actions: [removeCell, editCell])
         fullSwipeAction.performsFirstActionWithFullSwipe = false
         
         return fullSwipeAction
@@ -123,4 +127,6 @@ class BookmarkTableViewController: UITableViewController {
         }
         self.tableView.reloadData()
     }
+    
+
 }
