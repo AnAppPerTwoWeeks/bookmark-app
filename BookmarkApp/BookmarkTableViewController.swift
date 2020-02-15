@@ -59,6 +59,10 @@ class BookmarkTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let pasteboard = UIPasteboard.general
+        pasteboard.string = self.bookmarkArray[indexPath.row].url
+        
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
