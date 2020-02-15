@@ -38,6 +38,18 @@ class BookmarkTableViewController: UITableViewController {
         return bookmarkArray.count
     }
 
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        let removeCell = UIContextualAction(style: .destructive, title: "삭제") { (UIContextualAction, UIView, (Bool) -> Void) in
+            self.bookmarkArray.remove(at: indexPath.row)
+            self.setBookmarkUserDeafaults()
+        }
+        
+        let fullSwipeAction = UISwipeActionsConfiguration(actions: [removeCell])
+        fullSwipeAction.performsFirstActionWithFullSwipe = false
+        
+        return fullSwipeAction
+    }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! BookmarkTableViewCell
@@ -70,12 +82,7 @@ class BookmarkTableViewController: UITableViewController {
                 }
             }
             
-            if let encode = try? JSONEncoder().encode(self.bookmarkArray) {
-                    self.defaults.set(encode, forKey: "bookmark")
-
-            }
-            
-            self.tableView.reloadData()
+            self.setBookmarkUserDeafaults()
             
         }
         
@@ -94,5 +101,12 @@ class BookmarkTableViewController: UITableViewController {
         
         present(alert, animated: true)
         
+    }
+    
+    func setBookmarkUserDeafaults() {
+        if let encode = try? JSONEncoder().encode(self.bookmarkArray) {
+            self.defaults.set(encode, forKey: "bookmark")
+        }
+        self.tableView.reloadData()
     }
 }
