@@ -63,9 +63,12 @@ class BookmarkTableViewController: UITableViewController {
         let pasteboard = UIPasteboard.general
         pasteboard.string = self.bookmarkArray[indexPath.row].url
         
-        let alert = UIAlertController(title: nil, message: "URL이 저장 되었습니다.", preferredStyle: .alert)
+        let alert = UIAlertController(title: nil, message: "URL이 복사 되었습니다.", preferredStyle: .alert)
         present(alert, animated:true)
-        dismiss(animated: true, completion: nil)
+      
+        Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { (timer) in
+            self.dismiss(animated: true, completion: nil)
+        }
         
         tableView.deselectRow(at: indexPath, animated: true)
     }
