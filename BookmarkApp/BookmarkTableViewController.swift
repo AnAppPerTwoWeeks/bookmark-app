@@ -14,27 +14,23 @@ class BookmarkTableViewController: UITableViewController {
     
     var bookmarkArray = [BookmarkVO]()
     
+    var selectedCellindex = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "북마크"
-        
-        if let savedBookmark = defaults.object(forKey: "bookmark") as? Data {
-            if let loadedBookmark = try? JSONDecoder().decode([BookmarkVO].self, from: savedBookmark) {
-                bookmarkArray = loadedBookmark
-            }
-        }
-
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     }
-
-    // MARK: - Table view data source
-
+    
+    override func viewWillAppear(_ animated: Bool) {
+        getBookmarkUserDefaults()
+    }
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return bookmarkArray.count
     }
 
@@ -42,19 +38,28 @@ class BookmarkTableViewController: UITableViewController {
         
         let removeCell = UIContextualAction(style: .destructive, title: "삭제") { (UIContextualAction, UIView, (Bool) -> Void) in
             self.bookmarkArray.remove(at: indexPath.row)
-            self.setBookmarkUserDeafaults()
+            self.setBookmarkUserDefaults()
         }
         
-        let fullSwipeAction = UISwipeActionsConfiguration(actions: [removeCell])
-        fullSwipeAction.performsFirstActionWithFullSwipe = false
+        let editCell = UIContextualAction(style: .normal, title: "편집") { (UIContextualAction, UIView, (Bool) -> Void) in
+            let bookmark: BookmarkVO!
+            bookmark = self.bookmarkArray[indexPath.row]
+            self.selectedCellindex = indexPath.row
+            self.performSegue(withIdentifier: "editSegue", sender: bookmark)
+        }
         
-        return fullSwipeAction
+        let swipeAction = UISwipeActionsConfiguration(actions: [removeCell, editCell])
+        swipeAction.performsFirstActionWithFullSwipe = false
+        
+        return swipeAction
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! BookmarkTableViewCell
         cell.nameLabel.text = bookmarkArray[indexPath.row].name
         cell.urlLabel.text = bookmarkArray[indexPath.row].url
+    
         return cell
     }
     
@@ -93,7 +98,7 @@ class BookmarkTableViewController: UITableViewController {
                 }
             }
             
-            self.setBookmarkUserDeafaults()
+            self.setBookmarkUserDefaults()
             
         }
         
@@ -117,10 +122,31 @@ class BookmarkTableViewController: UITableViewController {
         
     }
     
-    func setBookmarkUserDeafaults() {
+    func getBookmarkUserDefaults() {
+        if let savedBookmark = defaults.object(forKey: "bookmark") as? Data {
+            if let loadedBookmark = try? JSONDecoder().decode([BookmarkVO].self, from: savedBookmark) {
+                bookmarkArray = loadedBookmark
+            }
+        }
+        self.tableView.reloadData()
+    }
+    
+    func setBookmarkUserDefaults() {
         if let encode = try? JSONEncoder().encode(self.bookmarkArray) {
             self.defaults.set(encode, forKey: "bookmark")
         }
         self.tableView.reloadData()
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "editSegue" {
+                if let editCell = segue.destination as? EditBookmarkViewController {
+                    if let item = sender as? BookmarkVO {
+                        editCell.bookmark = item
+                        editCell.EditedBookmarkArray = bookmarkArray
+                        editCell.indexpath = selectedCellindex
+                }
+            }
+        }
     }
 }
