@@ -118,6 +118,9 @@
                                 </constraints>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="okButtonPressed:" destination="wwa-Jz-89o" eventType="touchUpInside" id="Lh1-4G-Om7"/>
+                                </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="linkImage" translatesAutoresizingMaskIntoConstraints="NO" id="Lrc-hu-Fgw">
                                 <rect key="frame" x="157" y="276" width="100" height="100"/>
@@ -162,7 +165,9 @@
                     <connections>
                         <outlet property="editButton" destination="SlI-cP-kK4" id="uTQ-08-pPy"/>
                         <outlet property="nameLabel" destination="7Vv-hQ-xNz" id="0aL-9N-q9E"/>
+                        <outlet property="nameTextfield" destination="9Vx-aM-AAN" id="Zwq-dm-7qT"/>
                         <outlet property="urlLabel" destination="235-ge-Vlc" id="pSg-Oe-Frg"/>
+                        <outlet property="urlTextfield" destination="mbf-Oa-tXm" id="r6Z-BK-6Zh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ROj-Hw-McH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
