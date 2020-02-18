@@ -83,11 +83,20 @@ class BookmarkTableViewController: UITableViewController {
         }
         
         let addAction = UIAlertAction(title: "저장", style: .default) { (action) in
-            self.bookmarkModel.append(nameTextfield.text, url: urlTextfield.text)
-            self.tableView.reloadData()
-
+            if (nameTextfield.text != "") && (urlTextfield.text != "") {
+                self.bookmarkModel.append(nameTextfield.text, url: urlTextfield.text)
+                self.tableView.reloadData()
+            } else {
+                let notice = UIAlertController(title: nil, message: "모든 텍스트 필드를 입력해주세요.", preferredStyle: .alert)
+                self.present(notice, animated:true)
+                
+                  Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { (timer) in
+                    self.dismiss(animated: true, completion: nil)
+                    self.present(alert, animated:true)
+                  }
+            }
         }
-        
+  
         alert.addTextField { (alertNameTextfield) in
             alertNameTextfield.placeholder = "북마크 이름을 입력해 주세요."
             nameTextfield = alertNameTextfield
@@ -107,6 +116,8 @@ class BookmarkTableViewController: UITableViewController {
         present(alert, animated: true)
         
     }
+    
+
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "editSegue" {
