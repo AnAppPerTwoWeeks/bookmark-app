@@ -30,17 +30,13 @@ class BookmarkEditViewController: UIViewController {
         urlLabel.text = "URL"
         okButton.setTitle("확인", for: .normal)
         
-        nameTextfield.text = bookmarkModel.bookmarkArray[indexpath].name
-        urlTextfield.text = bookmarkModel.bookmarkArray[indexpath].url
+        nameTextfield.text = bookmarkModel.get(indexpath).name
+        urlTextfield.text = bookmarkModel.get(indexpath).url
 
     }
     
     @IBAction func okButtonPressed(_ sender: Any) {
-        let bookmark = Bookmark(name: nameTextfield.text, url: urlTextfield.text)
-        bookmarkModel.bookmarkArray[indexpath] = bookmark
-        if let encode = try? JSONEncoder().encode(self.bookmarkModel.bookmarkArray) {
-            UserDefaults.standard.set(encode, forKey: "bookmark")
-        }
+        bookmarkModel.editAt(indexpath, name: nameTextfield.text, url: urlTextfield.text)
         self.navigationController?.popViewController(animated: true)
     }
 }
