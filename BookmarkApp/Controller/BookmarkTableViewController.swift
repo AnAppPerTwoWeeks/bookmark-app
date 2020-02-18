@@ -19,6 +19,7 @@ class BookmarkTableViewController: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        tableView.reloadData()
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -110,9 +111,9 @@ class BookmarkTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "editSegue" {
             if let editCell = segue.destination as? BookmarkEditViewController {
-                if let item = sender as? Int {
-                    let indexPath = item
-                    editCell.EditedBookmarkArray = bookmarkModel.bookmarkArray
+                if let index = sender as? Int {
+                    let indexPath = index
+                    editCell.bookmarkModel = bookmarkModel
                     editCell.indexpath = indexPath
                 }
             }

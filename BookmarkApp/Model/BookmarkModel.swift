@@ -53,12 +53,4 @@ class BookmarkModel {
         }
     }
     
-//    func getBookmarkFromUserDefaults() {
-//        if let savedBookmark = UserDefaults.standard.object(forKey: "bookmark") as? Data {
-//            if let loadedBookmark = try? JSONDecoder().decode([Bookmark].self, from: savedBookmark) {
-//                self.bookmarkArray = loadedBookmark
-//            }
-//        }
-//    }
-    
 }

@@ -12,7 +12,7 @@ class BookmarkEditViewController: UIViewController {
 
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var urlLabel: UILabel!
-    @IBOutlet weak var editButton: UIButton!
+    @IBOutlet weak var okButton: UIButton!
     @IBOutlet weak var nameTextfield: UITextField!
     @IBOutlet weak var urlTextfield: UITextField!
     
@@ -20,8 +20,7 @@ class BookmarkEditViewController: UIViewController {
     var bookmarkURL = ""
     var indexpath = 0
     
-    var bookmark = Bookmark()
-    var EditedBookmarkArray = [Bookmark]()
+    var bookmarkModel: BookmarkModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,23 +28,23 @@ class BookmarkEditViewController: UIViewController {
         
         nameLabel.text = "이름"
         urlLabel.text = "URL"
-        editButton.setTitle("확인", for: .normal)
+        okButton.setTitle("확인", for: .normal)
         
-        nameTextfield.text = EditedBookmarkArray[indexpath].name
-        urlTextfield.text = EditedBookmarkArray[indexpath].url
+        nameTextfield.text = bookmarkModel.bookmarkArray[indexpath].name
+        urlTextfield.text = bookmarkModel.bookmarkArray[indexpath].url
 
     }
     
     @IBAction func okButtonPressed(_ sender: Any) {
-        bookmark.name = nameTextfield.text
-        bookmark.url = urlTextfield.text
-        EditedBookmarkArray[indexpath] = bookmark
-        if let encode = try? JSONEncoder().encode(self.EditedBookmarkArray) {
+        let bookmark = Bookmark(name: nameTextfield.text, url: urlTextfield.text)
+        bookmarkModel.bookmarkArray[indexpath] = bookmark
+        if let encode = try? JSONEncoder().encode(self.bookmarkModel.bookmarkArray) {
             UserDefaults.standard.set(encode, forKey: "bookmark")
         }
         self.navigationController?.popViewController(animated: true)
     }
 }
+
 
 
 
