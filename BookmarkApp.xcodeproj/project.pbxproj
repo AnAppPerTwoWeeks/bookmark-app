@@ -7,20 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D3507BD523F84A7B00E0F7D8 /* EditBookmarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3507BD423F84A7B00E0F7D8 /* EditBookmarkViewController.swift */; };
-		D378BA1223F6861300951FC3 /* BookmarkVO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D378BA1123F6861300951FC3 /* BookmarkVO.swift */; };
+		D3205B5523FAC95E00BDA493 /* BookmarkModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3205B5423FAC95E00BDA493 /* BookmarkModel.swift */; };
+		D3507BD523F84A7B00E0F7D8 /* BookmarkEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3507BD423F84A7B00E0F7D8 /* BookmarkEditViewController.swift */; };
+		D378BA1223F6861300951FC3 /* Bookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = D378BA1123F6861300951FC3 /* Bookmark.swift */; };
 		D3952A9623F152BB009FAC83 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3952A9523F152BB009FAC83 /* AppDelegate.swift */; };
 		D3952A9823F152BB009FAC83 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3952A9723F152BB009FAC83 /* SceneDelegate.swift */; };
 		D3952A9D23F152BB009FAC83 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3952A9B23F152BB009FAC83 /* Main.storyboard */; };
 		D3952A9F23F152BC009FAC83 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3952A9E23F152BC009FAC83 /* Assets.xcassets */; };
 		D3952AA223F152BC009FAC83 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3952AA023F152BC009FAC83 /* LaunchScreen.storyboard */; };
 		D3EB147323F29F3C004A1073 /* BookmarkTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EB147223F29F3C004A1073 /* BookmarkTableViewController.swift */; };
-		D3EB147523F29FEB004A1073 /* BookmarkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EB147423F29FEB004A1073 /* BookmarkTableViewCell.swift */; };
+		D3EB147523F29FEB004A1073 /* BookmarkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EB147423F29FEB004A1073 /* BookmarkCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		D3507BD423F84A7B00E0F7D8 /* EditBookmarkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditBookmarkViewController.swift; sourceTree = "<group>"; };
-		D378BA1123F6861300951FC3 /* BookmarkVO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkVO.swift; sourceTree = "<group>"; };
+		D3205B5423FAC95E00BDA493 /* BookmarkModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkModel.swift; sourceTree = "<group>"; };
+		D3507BD423F84A7B00E0F7D8 /* BookmarkEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkEditViewController.swift; sourceTree = "<group>"; };
+		D378BA1123F6861300951FC3 /* Bookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bookmark.swift; sourceTree = "<group>"; };
 		D3952A9223F152BB009FAC83 /* BookmarkApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BookmarkApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3952A9523F152BB009FAC83 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D3952A9723F152BB009FAC83 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -29,7 +31,7 @@
 		D3952AA123F152BC009FAC83 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D3952AA323F152BC009FAC83 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D3EB147223F29F3C004A1073 /* BookmarkTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkTableViewController.swift; sourceTree = "<group>"; };
-		D3EB147423F29FEB004A1073 /* BookmarkTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkTableViewCell.swift; sourceTree = "<group>"; };
+		D3EB147423F29FEB004A1073 /* BookmarkCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,6 +45,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D3205B5123FAC51100BDA493 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				D3507BD423F84A7B00E0F7D8 /* BookmarkEditViewController.swift */,
+				D3EB147223F29F3C004A1073 /* BookmarkTableViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		D3205B5223FAC56200BDA493 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D3952A9B23F152BB009FAC83 /* Main.storyboard */,
+				D3EB147423F29FEB004A1073 /* BookmarkCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		D3205B5323FAC56C00BDA493 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D378BA1123F6861300951FC3 /* Bookmark.swift */,
+				D3205B5423FAC95E00BDA493 /* BookmarkModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		D3952A8923F152BB009FAC83 = {
 			isa = PBXGroup;
 			children = (
@@ -64,11 +93,9 @@
 			children = (
 				D3952A9523F152BB009FAC83 /* AppDelegate.swift */,
 				D3952A9723F152BB009FAC83 /* SceneDelegate.swift */,
-				D3952A9B23F152BB009FAC83 /* Main.storyboard */,
-				D3507BD423F84A7B00E0F7D8 /* EditBookmarkViewController.swift */,
-				D3EB147423F29FEB004A1073 /* BookmarkTableViewCell.swift */,
-				D3EB147223F29F3C004A1073 /* BookmarkTableViewController.swift */,
-				D378BA1123F6861300951FC3 /* BookmarkVO.swift */,
+				D3205B5323FAC56C00BDA493 /* Model */,
+				D3205B5223FAC56200BDA493 /* View */,
+				D3205B5123FAC51100BDA493 /* Controller */,
 				D3952A9E23F152BC009FAC83 /* Assets.xcassets */,
 				D3952AA023F152BC009FAC83 /* LaunchScreen.storyboard */,
 				D3952AA323F152BC009FAC83 /* Info.plist */,
@@ -148,11 +175,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				D3EB147323F29F3C004A1073 /* BookmarkTableViewController.swift in Sources */,
-				D378BA1223F6861300951FC3 /* BookmarkVO.swift in Sources */,
+				D378BA1223F6861300951FC3 /* Bookmark.swift in Sources */,
 				D3952A9623F152BB009FAC83 /* AppDelegate.swift in Sources */,
 				D3952A9823F152BB009FAC83 /* SceneDelegate.swift in Sources */,
-				D3507BD523F84A7B00E0F7D8 /* EditBookmarkViewController.swift in Sources */,
-				D3EB147523F29FEB004A1073 /* BookmarkTableViewCell.swift in Sources */,
+				D3507BD523F84A7B00E0F7D8 /* BookmarkEditViewController.swift in Sources */,
+				D3205B5523FAC95E00BDA493 /* BookmarkModel.swift in Sources */,
+				D3EB147523F29FEB004A1073 /* BookmarkCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
