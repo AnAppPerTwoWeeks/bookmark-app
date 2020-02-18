@@ -1,5 +1,5 @@
 //
-//  BookmarkVO.swift
+//  BMModel.swift
 //  BookmarkApp
 //
 //  Created by 장창순 on 14/02/2020.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct BookmarkVO : Codable {
+struct Bookmark : Codable {
     var name : String?
     var url : String?
 }

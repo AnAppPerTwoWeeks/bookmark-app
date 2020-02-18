@@ -1,5 +1,5 @@
 //
-//  BookmarkTableViewCell.swift
+//  BMCell.swift
 //  BookmarkApp
 //
 //  Created by 장창순 on 11/02/2020.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BookmarkTableViewCell: UITableViewCell {
+class BookmarkCell: UITableViewCell {
 
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var urlLabel: UILabel!
@@ -19,6 +19,11 @@ class BookmarkTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
+    }
+    
+    func update(_ item: Bookmark) {
+        nameLabel.text = item.name
+        urlLabel.text = item.url
     }
 
 }

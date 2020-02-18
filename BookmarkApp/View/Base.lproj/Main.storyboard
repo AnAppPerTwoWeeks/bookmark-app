@@ -16,7 +16,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="86" id="skW-AY-38g" customClass="BookmarkTableViewCell" customModule="BookmarkApp" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="86" id="skW-AY-38g" customClass="BookmarkCell" customModule="BookmarkApp" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="414" height="86"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="skW-AY-38g" id="guU-M0-4Ff">
@@ -87,10 +87,10 @@
             </objects>
             <point key="canvasLocation" x="886.95652173913049" y="4.6875"/>
         </scene>
-        <!--Edit Bookmark View Controller-->
+        <!--Bookmark Edit View Controller-->
         <scene sceneID="aV3-Uj-DIc">
             <objects>
-                <viewController id="wwa-Jz-89o" customClass="EditBookmarkViewController" customModule="BookmarkApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="wwa-Jz-89o" customClass="BookmarkEditViewController" customModule="BookmarkApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="fGR-ti-qzA">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -163,9 +163,9 @@
                     </view>
                     <navigationItem key="navigationItem" id="jop-Tj-G7R"/>
                     <connections>
-                        <outlet property="editButton" destination="SlI-cP-kK4" id="uTQ-08-pPy"/>
                         <outlet property="nameLabel" destination="7Vv-hQ-xNz" id="0aL-9N-q9E"/>
                         <outlet property="nameTextfield" destination="9Vx-aM-AAN" id="Zwq-dm-7qT"/>
+                        <outlet property="okButton" destination="SlI-cP-kK4" id="uTQ-08-pPy"/>
                         <outlet property="urlLabel" destination="235-ge-Vlc" id="pSg-Oe-Frg"/>
                         <outlet property="urlTextfield" destination="mbf-Oa-tXm" id="r6Z-BK-6Zh"/>
                     </connections>

@@ -1,5 +1,5 @@
 //
-//  BookmarkTableViewController.swift
+//  BMTableVC.swift
 //  BookmarkApp
 //
 //  Created by 장창순 on 11/02/2020.
@@ -9,13 +9,9 @@
 import UIKit
 
 class BookmarkTableViewController: UITableViewController {
+    
+    var bookmarkModel = BookmarkModel()
 
-    let defaults = UserDefaults.standard
-    
-    var bookmarkArray = [BookmarkVO]()
-    
-    var selectedCellindex = 0
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "북마크"
@@ -23,7 +19,7 @@ class BookmarkTableViewController: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        getBookmarkUserDefaults()
+        tableView.reloadData()
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -31,21 +27,19 @@ class BookmarkTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return bookmarkArray.count
+        return bookmarkModel.count
     }
 
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
         let removeCell = UIContextualAction(style: .destructive, title: "삭제") { (UIContextualAction, UIView, (Bool) -> Void) in
-            self.bookmarkArray.remove(at: indexPath.row)
-            self.setBookmarkUserDefaults()
+            self.bookmarkModel.remove(indexPath.row)
+            self.tableView.reloadData()
+            
         }
         
         let editCell = UIContextualAction(style: .normal, title: "편집") { (UIContextualAction, UIView, (Bool) -> Void) in
-            let bookmark: BookmarkVO!
-            bookmark = self.bookmarkArray[indexPath.row]
-            self.selectedCellindex = indexPath.row
-            self.performSegue(withIdentifier: "editSegue", sender: bookmark)
+            self.performSegue("editSegue", indexPath.row)
         }
         
         let swipeAction = UISwipeActionsConfiguration(actions: [removeCell, editCell])
@@ -56,17 +50,16 @@ class BookmarkTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! BookmarkTableViewCell
-        cell.nameLabel.text = bookmarkArray[indexPath.row].name
-        cell.urlLabel.text = bookmarkArray[indexPath.row].url
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! BookmarkCell
+        cell.update(bookmarkModel.get(indexPath.row))
+
     
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let pasteboard = UIPasteboard.general
-        pasteboard.string = self.bookmarkArray[indexPath.row].url
+        UIPasteboard.general.string = bookmarkModel.get(indexPath.row).url
         
         let alert = UIAlertController(title: nil, message: "URL이 복사 되었습니다.", preferredStyle: .alert)
         present(alert, animated:true)
@@ -90,16 +83,9 @@ class BookmarkTableViewController: UITableViewController {
         }
         
         let addAction = UIAlertAction(title: "저장", style: .default) { (action) in
-           
-            if let nameText = nameTextfield.text, !nameText.isEmpty {
-                if let urlText = urlTextfield.text, !urlText.isEmpty {
-                    let bookmarkItem = BookmarkVO(name: nameText, url: urlText)
-                    self.bookmarkArray.append(bookmarkItem)
-                }
-            }
-            
-            self.setBookmarkUserDefaults()
-            
+            self.bookmarkModel.append(nameTextfield.text, url: urlTextfield.text)
+            self.tableView.reloadData()
+
         }
         
         alert.addTextField { (alertNameTextfield) in
@@ -122,29 +108,13 @@ class BookmarkTableViewController: UITableViewController {
         
     }
     
-    func getBookmarkUserDefaults() {
-        if let savedBookmark = defaults.object(forKey: "bookmark") as? Data {
-            if let loadedBookmark = try? JSONDecoder().decode([BookmarkVO].self, from: savedBookmark) {
-                bookmarkArray = loadedBookmark
-            }
-        }
-        self.tableView.reloadData()
-    }
-    
-    func setBookmarkUserDefaults() {
-        if let encode = try? JSONEncoder().encode(self.bookmarkArray) {
-            self.defaults.set(encode, forKey: "bookmark")
-        }
-        self.tableView.reloadData()
-    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "editSegue" {
-                if let editCell = segue.destination as? EditBookmarkViewController {
-                    if let item = sender as? BookmarkVO {
-                        editCell.bookmark = item
-                        editCell.EditedBookmarkArray = bookmarkArray
-                        editCell.indexpath = selectedCellindex
+            if let editCell = segue.destination as? BookmarkEditViewController {
+                if let index = sender as? Int {
+                    let indexPath = index
+                    editCell.bookmarkModel = bookmarkModel
+                    editCell.indexpath = indexPath
                 }
             }
         }
