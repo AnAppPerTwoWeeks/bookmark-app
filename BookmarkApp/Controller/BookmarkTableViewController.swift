@@ -19,8 +19,6 @@ class BookmarkTableViewController: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        bookmarkModel.getBookmarkFromUserDefaults()
-        tableView.reloadData()
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
