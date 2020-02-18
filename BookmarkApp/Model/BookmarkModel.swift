@@ -18,6 +18,14 @@ class BookmarkModel {
         }
     }
     
+    init() {
+        if let savedBookmark = UserDefaults.standard.object(forKey: "bookmark") as? Data {
+            if let loadedBookmark = try? JSONDecoder().decode([Bookmark].self, from: savedBookmark) {
+                self.bookmarkArray = loadedBookmark
+            }
+        }
+    }
+    
     func remove(_ at: Int) {
       
         bookmarkArray.remove(at: at)
@@ -39,18 +47,18 @@ class BookmarkModel {
         return bookmarkArray[at]
     }
     
-    func getBookmarkFromUserDefaults() {
-        if let savedBookmark = UserDefaults.standard.object(forKey: "bookmark") as? Data {
-            if let loadedBookmark = try? JSONDecoder().decode([Bookmark].self, from: savedBookmark) {
-                self.bookmarkArray = loadedBookmark
-            }
-        }
-    }
-    
     func setBookmarkToUserDefaults() {
         if let encode = try? JSONEncoder().encode(bookmarkArray) {
             UserDefaults.standard.set(encode, forKey: "bookmark")
         }
     }
+    
+//    func getBookmarkFromUserDefaults() {
+//        if let savedBookmark = UserDefaults.standard.object(forKey: "bookmark") as? Data {
+//            if let loadedBookmark = try? JSONDecoder().decode([Bookmark].self, from: savedBookmark) {
+//                self.bookmarkArray = loadedBookmark
+//            }
+//        }
+//    }
     
 }
