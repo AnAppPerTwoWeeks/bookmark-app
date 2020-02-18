@@ -42,9 +42,9 @@ class BookmarkModel {
     }
     
     func editAt(_ indexpath: Int, name: String?, url: String?) {
-        let bookmark = Bookmark(name: name, url: url)
-        bookmarkArray[indexpath] = bookmark
-        setBookmarkToUserDefaults()
+            let bookmark = Bookmark(name: name, url: url)
+                bookmarkArray[indexpath] = bookmark
+                setBookmarkToUserDefaults()
     }
 
     func setBookmarkToUserDefaults() {

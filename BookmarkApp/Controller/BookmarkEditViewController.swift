@@ -16,8 +16,6 @@ class BookmarkEditViewController: UIViewController {
     @IBOutlet weak var nameTextfield: UITextField!
     @IBOutlet weak var urlTextfield: UITextField!
     
-    var bookmarkName = ""
-    var bookmarkURL = ""
     var indexpath = 0
     
     var bookmarkModel: BookmarkModel!
@@ -36,8 +34,18 @@ class BookmarkEditViewController: UIViewController {
     }
     
     @IBAction func okButtonPressed(_ sender: Any) {
-        bookmarkModel.editAt(indexpath, name: nameTextfield.text, url: urlTextfield.text)
-        self.navigationController?.popViewController(animated: true)
+        if (nameTextfield.text == "") || (urlTextfield.text == "") {
+              let notice = UIAlertController(title: nil, message: "모든 텍스트 필드를 입력해주세요.", preferredStyle: .alert)
+              present(notice, animated:true)
+            
+              Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { (timer) in
+                  self.dismiss(animated: true, completion: nil)
+              }
+        } else {
+            bookmarkModel.editAt(indexpath, name: nameTextfield.text, url: urlTextfield.text)
+            self.navigationController?.popViewController(animated: true)
+        }
+
     }
 }
 
