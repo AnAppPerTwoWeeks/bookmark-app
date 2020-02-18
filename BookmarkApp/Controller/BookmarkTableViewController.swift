@@ -20,7 +20,7 @@ class BookmarkTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         bookmarkModel.getBookmarkFromUserDefaults()
-       tableView.reloadData()
+        tableView.reloadData()
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -35,7 +35,8 @@ class BookmarkTableViewController: UITableViewController {
         
         let removeCell = UIContextualAction(style: .destructive, title: "삭제") { (UIContextualAction, UIView, (Bool) -> Void) in
             self.bookmarkModel.remove(indexPath.row)
-            self.setBookmarkUserDefaults()
+            self.tableView.reloadData()
+            
         }
         
         let editCell = UIContextualAction(style: .normal, title: "편집") { (UIContextualAction, UIView, (Bool) -> Void) in
@@ -84,7 +85,8 @@ class BookmarkTableViewController: UITableViewController {
         
         let addAction = UIAlertAction(title: "저장", style: .default) { (action) in
             self.bookmarkModel.append(nameTextfield.text, url: urlTextfield.text)
-            self.setBookmarkUserDefaults()
+            self.tableView.reloadData()
+
         }
         
         alert.addTextField { (alertNameTextfield) in
@@ -105,22 +107,6 @@ class BookmarkTableViewController: UITableViewController {
         
         present(alert, animated: true)
         
-    }
-    
-    func getBookmarkUserDefaults() {
-        if let savedBookmark = UserDefaults.standard.object(forKey: "bookmark") as? Data {
-            if let loadedBookmark = try? JSONDecoder().decode([Bookmark].self, from: savedBookmark) {
-                bookmarkModel.bookmarkArray = loadedBookmark
-            }
-        }
-        self.tableView.reloadData()
-    }
-    
-    func setBookmarkUserDefaults() {
-        if let encode = try? JSONEncoder().encode(self.bookmarkModel.bookmarkArray) {
-            UserDefaults.standard.set(encode, forKey: "bookmark")
-        }
-        self.tableView.reloadData()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
