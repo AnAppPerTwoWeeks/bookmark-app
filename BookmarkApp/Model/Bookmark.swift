@@ -21,6 +21,10 @@ struct Bookmark : Codable {
 struct Directory: Codable {
     var name: String
     var bookmarks: [Bookmark]
+    
+    func getItems() -> [Bookmark] {
+        return bookmarks
+    }
 
 }
 
