@@ -11,6 +11,7 @@ import Foundation
 class BookmarkModel {
     
     var bookmarkArray = [Bookmark]()
+    var directoryArray = [Directory]()
     
     var count : Int {
         get {
@@ -31,17 +32,15 @@ class BookmarkModel {
         setBookmarkToUserDefaults()
     }
     
-    func append(_ name: String?, url: String?) {
-        if let nameText = name, !nameText.isEmpty {
-            if let urlText = url, !urlText.isEmpty {
-                let bookmark = Bookmark(name: nameText, url: urlText)
+    func append(_ name: String, url: String) {
+                let bookmark = Bookmark(name: name, url: url)
                 self.bookmarkArray.append(bookmark)
                 setBookmarkToUserDefaults()
             }
-        }
-    }
+        
     
-    func editAt(_ indexpath: Int, name: String?, url: String?) {
+    
+    func editAt(_ indexpath: Int, name: String, url: String) {
             let bookmark = Bookmark(name: name, url: url)
                 bookmarkArray[indexpath] = bookmark
                 setBookmarkToUserDefaults()

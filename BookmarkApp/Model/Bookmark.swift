@@ -9,6 +9,19 @@
 import Foundation
 
 struct Bookmark : Codable {
-    var name : String?
-    var url : String?
+    private var name : String
+    private var url : String
+    
+    init(name: String, url: String) {
+        self.name = name
+        self.url = url
+    }
 }
+
+struct Directory: Codable {
+    var name: String
+    var bookmarks: [Bookmark]
+
+}
+
+
