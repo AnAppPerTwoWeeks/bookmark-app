@@ -11,7 +11,6 @@ import Foundation
 class BookmarkModel {
     
     var bookmarkArray = [Bookmark]()
-    var directoryArray = [Directory]()
     
     var count : Int {
         get {
@@ -20,39 +19,37 @@ class BookmarkModel {
     }
     
     init() {
-        getBookmarkFromUserDefaults()
+        getBookmarkArrayFromUserDefaults()
     }
     
-    func get(_ at: Int) -> Bookmark {
+    func getBookmarkAt(_ at: Int) -> Bookmark {
         return bookmarkArray[at]
     }
     
-    func remove(_ at: Int) {
+    func removeBookmarkByIndex(_ at: Int) {
         bookmarkArray.remove(at: at)
-        setBookmarkToUserDefaults()
+        setBookmarkArrayToUserDefaults()
     }
     
-    func append(_ name: String, url: String) {
+    func addBookmark(_ name: String, url: String) {
                 let bookmark = Bookmark(name: name, url: url)
                 self.bookmarkArray.append(bookmark)
-                setBookmarkToUserDefaults()
+                setBookmarkArrayToUserDefaults()
             }
         
-    
-    
-    func editAt(_ indexpath: Int, name: String, url: String) {
+    func editBookmarkAt(_ indexpath: Int, name: String, url: String) {
             let bookmark = Bookmark(name: name, url: url)
                 bookmarkArray[indexpath] = bookmark
-                setBookmarkToUserDefaults()
+                setBookmarkArrayToUserDefaults()
     }
 
-    func setBookmarkToUserDefaults() {
+    func setBookmarkArrayToUserDefaults() {
         if let encode = try? JSONEncoder().encode(bookmarkArray) {
             UserDefaults.standard.set(encode, forKey: "bookmark")
         }
     }
     
-    func getBookmarkFromUserDefaults() {
+    func getBookmarkArrayFromUserDefaults() {
         if let savedBookmark = UserDefaults.standard.object(forKey: "bookmark") as? Data {
             if let loadedBookmark = try? JSONDecoder().decode([Bookmark].self, from: savedBookmark) {
                 self.bookmarkArray = loadedBookmark

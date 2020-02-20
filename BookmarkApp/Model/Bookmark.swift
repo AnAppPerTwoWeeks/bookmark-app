@@ -16,16 +16,12 @@ struct Bookmark : Codable {
         self.name = name
         self.url = url
     }
-}
-
-struct Directory: Codable {
-    var name: String
-    var bookmarks: [Bookmark]
     
-    func getItems() -> [Bookmark] {
-        return bookmarks
+    func getBookmarName() -> String {
+        return name
     }
-
+    
+    func getBookmarkURL() -> String {
+        return url
+    }
 }
-
-

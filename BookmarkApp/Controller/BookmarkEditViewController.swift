@@ -16,9 +16,9 @@ class BookmarkEditViewController: UIViewController {
     @IBOutlet weak var nameTextfield: UITextField!
     @IBOutlet weak var urlTextfield: UITextField!
     
-    var indexpath = 0
+    private var indexpath = 0
     
-    var bookmarkModel: BookmarkModel!
+    private var bookmarkModel: BookmarkModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,9 +28,17 @@ class BookmarkEditViewController: UIViewController {
         urlLabel.text = "URL"
         okButton.setTitle("확인", for: .normal)
         
-        nameTextfield.text = bookmarkModel.get(indexpath).name
-        urlTextfield.text = bookmarkModel.get(indexpath).url
+        nameTextfield.text = bookmarkModel.getBookmarkAt(indexpath).getBookmarName()
+        urlTextfield.text = bookmarkModel.getBookmarkAt(indexpath).getBookmarkURL()
 
+    }
+    
+    func setBookmarkModel(_ bookmark: BookmarkModel) {
+        bookmarkModel = bookmark
+    }
+    
+    func setIndexpath(_ index: Int) {
+        indexpath = index
     }
     
     @IBAction func okButtonPressed(_ sender: Any) {
@@ -42,10 +50,11 @@ class BookmarkEditViewController: UIViewController {
                   self.dismiss(animated: true, completion: nil)
               }
         } else {
-            bookmarkModel.editAt(indexpath, name: nameTextfield.text, url: urlTextfield.text)
-            self.navigationController?.popViewController(animated: true)
+            if let name = nameTextfield.text , let url = urlTextfield.text {
+                bookmarkModel.editBookmarkAt(indexpath, name: name, url: url)
+                self.navigationController?.popViewController(animated: true)
+            }
         }
-
     }
 }
 
