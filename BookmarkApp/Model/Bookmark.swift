@@ -8,7 +8,55 @@
 
 import Foundation
 
+//MARK: - Bookmark
+
 struct Bookmark : Codable {
-    var name : String?
-    var url : String?
+    private var name : String
+    private var url : String
+    
+    init(name: String, url: String) {
+        self.name = name
+        self.url = url
+    }
+    
+    func getBookmarName() -> String {
+        return name
+    }
+    
+    func getBookmarkURL() -> String {
+        return url
+    }
+}
+
+//MARK: - Direcory
+
+struct Directory: Codable {
+    private var name: String
+    private var bookmarks: [Bookmark]
+    
+    init(name: String) {
+        self.name = name
+        self.bookmarks = [Bookmark]()
+    }
+    
+    func getDirectoryName() -> String {
+        return name
+    }
+    
+    func getItems() -> [Bookmark] {
+        return bookmarks
+    }
+    
+    func getBookmark(_ index: Int) -> Bookmark {
+        return bookmarks[index]
+    }
+    
+    mutating func deleteBookmarkFromDirectory(_ index: Int){
+        bookmarks.remove(at: index)
+    }
+    
+    mutating func addBookmarkToDirectory(_ item: Bookmark) {
+        bookmarks.append(item)
+    }
+
 }

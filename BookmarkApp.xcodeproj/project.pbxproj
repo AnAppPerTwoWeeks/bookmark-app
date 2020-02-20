@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D3205B5523FAC95E00BDA493 /* BookmarkModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3205B5423FAC95E00BDA493 /* BookmarkModel.swift */; };
+		D331732623FE6C27005151BA /* DirectoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D331732523FE6C27005151BA /* DirectoryCell.swift */; };
 		D3507BD523F84A7B00E0F7D8 /* BookmarkEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3507BD423F84A7B00E0F7D8 /* BookmarkEditViewController.swift */; };
 		D378BA1223F6861300951FC3 /* Bookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = D378BA1123F6861300951FC3 /* Bookmark.swift */; };
 		D3952A9623F152BB009FAC83 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3952A9523F152BB009FAC83 /* AppDelegate.swift */; };
@@ -21,6 +22,7 @@
 
 /* Begin PBXFileReference section */
 		D3205B5423FAC95E00BDA493 /* BookmarkModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkModel.swift; sourceTree = "<group>"; };
+		D331732523FE6C27005151BA /* DirectoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryCell.swift; sourceTree = "<group>"; };
 		D3507BD423F84A7B00E0F7D8 /* BookmarkEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkEditViewController.swift; sourceTree = "<group>"; };
 		D378BA1123F6861300951FC3 /* Bookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bookmark.swift; sourceTree = "<group>"; };
 		D3952A9223F152BB009FAC83 /* BookmarkApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BookmarkApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -58,6 +60,7 @@
 			isa = PBXGroup;
 			children = (
 				D3952A9B23F152BB009FAC83 /* Main.storyboard */,
+				D331732523FE6C27005151BA /* DirectoryCell.swift */,
 				D3EB147423F29FEB004A1073 /* BookmarkCell.swift */,
 			);
 			path = View;
@@ -177,6 +180,7 @@
 				D3EB147323F29F3C004A1073 /* BookmarkTableViewController.swift in Sources */,
 				D378BA1223F6861300951FC3 /* Bookmark.swift in Sources */,
 				D3952A9623F152BB009FAC83 /* AppDelegate.swift in Sources */,
+				D331732623FE6C27005151BA /* DirectoryCell.swift in Sources */,
 				D3952A9823F152BB009FAC83 /* SceneDelegate.swift in Sources */,
 				D3507BD523F84A7B00E0F7D8 /* BookmarkEditViewController.swift in Sources */,
 				D3205B5523FAC95E00BDA493 /* BookmarkModel.swift in Sources */,

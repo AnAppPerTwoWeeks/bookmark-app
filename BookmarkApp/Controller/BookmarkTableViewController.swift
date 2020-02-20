@@ -23,56 +23,104 @@ class BookmarkTableViewController: UITableViewController {
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return 2
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return bookmarkModel.count
+        if section == 0 {
+            return bookmarkModel.directoryArray.count
+        } else {
+            return bookmarkModel.bookmarkArray.count
+        }
     }
 
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        
-        let removeCell = UIContextualAction(style: .destructive, title: "삭제") { (UIContextualAction, UIView, (Bool) -> Void) in
-            self.bookmarkModel.remove(indexPath.row)
-            self.tableView.reloadData()
+        if indexPath.section == 0 {
+            let swipeAction = UISwipeActionsConfiguration()
+            swipeAction.performsFirstActionWithFullSwipe = false
+            return swipeAction
+        } else {
+            let removeCell = UIContextualAction(style: .destructive, title: "삭제") { (UIContextualAction, UIView, (Bool) -> Void) in
+                self.bookmarkModel.deleteBookmarkByIndex(indexPath.row)
+                self.tableView.reloadData()
+            }
             
+            let editCell = UIContextualAction(style: .normal, title: "편집") { (UIContextualAction, UIView, (Bool) -> Void) in
+                self.performSegue("editSegue", indexPath.row)
+            }
+            
+            let swipeAction = UISwipeActionsConfiguration(actions: [removeCell, editCell])
+            swipeAction.performsFirstActionWithFullSwipe = false
+            
+            return swipeAction
         }
-        
-        let editCell = UIContextualAction(style: .normal, title: "편집") { (UIContextualAction, UIView, (Bool) -> Void) in
-            self.performSegue("editSegue", indexPath.row)
-        }
-        
-        let swipeAction = UISwipeActionsConfiguration(actions: [removeCell, editCell])
-        swipeAction.performsFirstActionWithFullSwipe = false
-        
-        return swipeAction
+
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! BookmarkCell
-        cell.update(bookmarkModel.get(indexPath.row))
-
-    
-        return cell
+        if indexPath.section == 0 {
+            var directoryCell = DirectoryCell()
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "directoryCell", for: indexPath) as? DirectoryCell {
+                directoryCell = cell
+            }
+            directoryCell.update(bookmarkModel.getDirectory(indexPath.row))
+            return directoryCell
+        } else {
+            var bookmarkCell = BookmarkCell()
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? BookmarkCell {
+            bookmarkCell = cell
+        }
+            bookmarkCell.update(bookmarkModel.getBookmarkAt(indexPath.row))
+            return bookmarkCell
+        }
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        UIPasteboard.general.string = bookmarkModel.get(indexPath.row).url
-        
-        let alert = UIAlertController(title: nil, message: "URL이 복사 되었습니다.", preferredStyle: .alert)
-        present(alert, animated:true)
-      
-        Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { (timer) in
-            self.dismiss(animated: true, completion: nil)
+        if indexPath.section == 0 {
+            tableView.deselectRow(at: indexPath, animated: true)
+        } else {
+            UIPasteboard.general.string = bookmarkModel.getBookmarkAt(indexPath.row).getBookmarkURL()
+              
+            let alert = UIAlertController(title: nil, message: "URL이 복사 되었습니다.", preferredStyle: .alert)
+            present(alert, animated:true)
+            
+            Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { (timer) in
+                self.dismiss(animated: true, completion: nil)
+            }
+            tableView.deselectRow(at: indexPath, animated: true)
         }
-        
-        tableView.deselectRow(at: indexPath, animated: true)
     }
     
-
-    @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
+    @IBAction func addDirectoryButtonPressed(_ sender: Any) {
+        
+        var nameTextField = UITextField()
+        
+        let alert = UIAlertController(title: "폴더 생성", message: nil, preferredStyle: .alert)
+        
+        let cancelAction = UIAlertAction(title: "취소", style: .destructive) { (action) in
+        }
+        
+        let addAction = UIAlertAction(title: "생성", style: .default) { (action) in
+            if nameTextField.text != "" {
+                if let name = nameTextField.text {
+                    self.bookmarkModel.addDirectory(name)
+                    self.tableView.reloadData()
+                }
+            }
+        }
+        
+        alert.addTextField { (alertNameTextfield) in
+            alertNameTextfield.placeholder = "디렉토리의 이름을 입력해 주세요."
+            nameTextField = alertNameTextfield
+        }
+        
+        alert.addAction(cancelAction)
+        alert.addAction(addAction)
+        
+        present(alert, animated: true)
+    }
+    
+    @IBAction func addBookmarkButtonPressed(_ sender: UIBarButtonItem) {
         
         var nameTextfield = UITextField()
         var urlTextfield = UITextField()
@@ -84,16 +132,18 @@ class BookmarkTableViewController: UITableViewController {
         
         let addAction = UIAlertAction(title: "저장", style: .default) { (action) in
             if (nameTextfield.text != "") && (urlTextfield.text != "") {
-                self.bookmarkModel.append(nameTextfield.text, url: urlTextfield.text)
-                self.tableView.reloadData()
+                if let name = nameTextfield.text , let url = urlTextfield.text {
+                    self.bookmarkModel.addBookmark(name, url: url)
+                    self.tableView.reloadData()
+                }
             } else {
                 let notice = UIAlertController(title: nil, message: "모든 텍스트 필드를 입력해주세요.", preferredStyle: .alert)
                 self.present(notice, animated:true)
                 
-                  Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { (timer) in
+                Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { (timer) in
                     self.dismiss(animated: true, completion: nil)
                     self.present(alert, animated:true)
-                  }
+                }
             }
         }
   
@@ -105,7 +155,7 @@ class BookmarkTableViewController: UITableViewController {
         alert.addTextField { (alertURLTextfield) in
             alertURLTextfield.placeholder = "URL을 입력해 주세요."
             if let copiedText = UIPasteboard.general.string {
-                alertURLTextfield.text = copiedText
+            alertURLTextfield.text = copiedText
             }
             urlTextfield = alertURLTextfield
         }
@@ -114,18 +164,15 @@ class BookmarkTableViewController: UITableViewController {
         alert.addAction(addAction)
         
         present(alert, animated: true)
-        
     }
-    
-
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "editSegue" {
             if let editCell = segue.destination as? BookmarkEditViewController {
                 if let index = sender as? Int {
                     let indexPath = index
-                    editCell.bookmarkModel = bookmarkModel
-                    editCell.indexpath = indexPath
+                    editCell.setBookmarkModel(bookmarkModel)
+                    editCell.setIndexpath(indexPath)
                 }
             }
         }

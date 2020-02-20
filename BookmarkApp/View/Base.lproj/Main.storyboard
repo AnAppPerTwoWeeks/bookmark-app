@@ -65,6 +65,41 @@
                                     <outlet property="urlLabel" destination="CTZ-ee-rgE" id="jap-od-GmY"/>
                                 </connections>
                             </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="directoryCell" rowHeight="88" id="eTn-Qg-cf3" customClass="DirectoryCell" customModule="BookmarkApp" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="114" width="414" height="88"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="eTn-Qg-cf3" id="Lsx-SM-kcu">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="88"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="folderImage" translatesAutoresizingMaskIntoConstraints="NO" id="pC1-eW-f1Y">
+                                            <rect key="frame" x="20" y="23" width="40" height="42"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="40" id="3yk-tr-YZQ"/>
+                                                <constraint firstAttribute="width" constant="40" id="Qaf-aR-bOQ"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mJS-KB-5WB">
+                                            <rect key="frame" x="81" y="31" width="313" height="26"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                            <color key="textColor" red="0.41176470590000003" green="0.4039215686" blue="0.50196078430000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="mJS-KB-5WB" firstAttribute="trailing" secondItem="Lsx-SM-kcu" secondAttribute="trailingMargin" id="0It-A0-5Ok"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="pC1-eW-f1Y" secondAttribute="bottom" constant="12" id="1QX-MU-Fvn"/>
+                                        <constraint firstItem="pC1-eW-f1Y" firstAttribute="leading" secondItem="Lsx-SM-kcu" secondAttribute="leadingMargin" id="9iM-zh-VCe"/>
+                                        <constraint firstItem="mJS-KB-5WB" firstAttribute="leading" secondItem="pC1-eW-f1Y" secondAttribute="trailing" constant="21" id="epz-6c-b5F"/>
+                                        <constraint firstItem="pC1-eW-f1Y" firstAttribute="top" secondItem="Lsx-SM-kcu" secondAttribute="topMargin" constant="12" id="gW9-7Q-Kuc"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="mJS-KB-5WB" secondAttribute="bottom" constant="20" id="lch-ny-kWT"/>
+                                        <constraint firstItem="mJS-KB-5WB" firstAttribute="top" secondItem="Lsx-SM-kcu" secondAttribute="topMargin" constant="20" id="rpp-5S-3Nd"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="nameLabel" destination="mJS-KB-5WB" id="HRL-P6-OEM"/>
+                                </connections>
+                            </tableViewCell>
                         </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="oAk-2b-H1F" id="RXO-9V-2kV"/>
@@ -72,12 +107,20 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="Mzm-1P-vbv">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="XWJ-lR-Mj7">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <connections>
-                                <action selector="addButtonPressed:" destination="oAk-2b-H1F" id="Cso-EJ-VwI"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem image="square.and.pencil" catalog="system" id="XWJ-lR-Mj7">
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <action selector="addBookmarkButtonPressed:" destination="oAk-2b-H1F" id="Cso-EJ-VwI"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem image="folder.badge.plus" catalog="system" id="kXM-zO-Hha">
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <action selector="addDirectoryButtonPressed:" destination="oAk-2b-H1F" id="n6M-bs-B7C"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <segue destination="wwa-Jz-89o" kind="show" identifier="editSegue" id="3P2-c7-CEs"/>
@@ -198,6 +241,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="folder.badge.plus" catalog="system" width="64" height="42"/>
+        <image name="folderImage" width="256" height="256"/>
         <image name="linkImage" width="256" height="256"/>
+        <image name="square.and.pencil" catalog="system" width="64" height="58"/>
     </resources>
 </document>
