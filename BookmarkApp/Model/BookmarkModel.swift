@@ -30,6 +30,15 @@ class BookmarkModel {
         getDirectoryArrayFromUserDefaults()
     }
     
+    func getSectionCount(index: Int) -> Int {
+    if index == SectionType.directory.rawValue {
+        return directoryArray.count
+    } else {
+        return bookmarkArray.count
+    }
+    
+    }
+    
 //MARK: - Bookmark Methods
     
     func getBookmarkFromBookmarkArray(_ at: Int) -> Bookmark {

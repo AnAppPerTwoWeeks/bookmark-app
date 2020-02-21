@@ -8,10 +8,17 @@
 
 import UIKit
 
+enum SectionType: Int {
+    case directory
+    case bookmark
+}
+
 class BookmarkTableViewController: UITableViewController {
     
     var bookmarkModel = BookmarkModel()
+    
 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "북마크"
@@ -28,27 +35,30 @@ class BookmarkTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
-            return bookmarkModel.directoryArrayCount
+        return bookmarkModel.getSectionCount(index: section)
+    }
+    
+    private func onRemoveAction(indexPath: IndexPath) {
+        if indexPath.row == SectionType.directory.rawValue {
+            self.bookmarkModel.deleteDirectoryByIndex(indexPath.row)
         } else {
-            return bookmarkModel.bookmarkArrayCount
+            self.bookmarkModel.deleteBookmarkByIndex(indexPath.row)
         }
+        self.tableView.reloadData()
+        
     }
 
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let removeCell = UIContextualAction(style: .normal, title: "삭제") { (UIContextualAction, UIView, (Bool) -> Void) in
+            onRemoveAction(indexPath: indexPath)
+        }
         if indexPath.section == 0 {
-            let removeCell = UIContextualAction(style: .destructive, title: "삭제") { (UIContextualAction, UIView, (Bool) -> Void) in
-                self.bookmarkModel.deleteDirectoryByIndex(indexPath.row)
-                self.tableView.reloadData()
-            }
             let swipeAction = UISwipeActionsConfiguration(actions: [removeCell])
             swipeAction.performsFirstActionWithFullSwipe = false
             return swipeAction
         } else {
-            let removeCell = UIContextualAction(style: .destructive, title: "삭제") { (UIContextualAction, UIView, (Bool) -> Void) in
-                self.bookmarkModel.deleteBookmarkByIndex(indexPath.row)
-                self.tableView.reloadData()
-            }
+           
+        
             
             let editCell = UIContextualAction(style: .normal, title: "편집") { (UIContextualAction, UIView, (Bool) -> Void) in
                 self.performSegue("editSegue", indexPath.row)
