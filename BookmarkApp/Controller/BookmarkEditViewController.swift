@@ -16,9 +16,9 @@ class BookmarkEditViewController: UIViewController {
     @IBOutlet weak var nameTextfield: UITextField!
     @IBOutlet weak var urlTextfield: UITextField!
     
-    var indexpath = 0
+    private var indexpath = 0
     
-    var bookmarkModel = BookmarkModel()
+    private var bookmarkModel = BookmarkModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
