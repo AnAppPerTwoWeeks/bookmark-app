@@ -16,6 +16,7 @@
 		D3952A9D23F152BB009FAC83 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3952A9B23F152BB009FAC83 /* Main.storyboard */; };
 		D3952A9F23F152BC009FAC83 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3952A9E23F152BC009FAC83 /* Assets.xcassets */; };
 		D3952AA223F152BC009FAC83 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3952AA023F152BC009FAC83 /* LaunchScreen.storyboard */; };
+		D3CCB13B23FFC3ED006281AD /* DirectoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CCB13A23FFC3ED006281AD /* DirectoryTableViewController.swift */; };
 		D3EB147323F29F3C004A1073 /* BookmarkTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EB147223F29F3C004A1073 /* BookmarkTableViewController.swift */; };
 		D3EB147523F29FEB004A1073 /* BookmarkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EB147423F29FEB004A1073 /* BookmarkCell.swift */; };
 /* End PBXBuildFile section */
@@ -32,6 +33,7 @@
 		D3952A9E23F152BC009FAC83 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D3952AA123F152BC009FAC83 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D3952AA323F152BC009FAC83 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D3CCB13A23FFC3ED006281AD /* DirectoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryTableViewController.swift; sourceTree = "<group>"; };
 		D3EB147223F29F3C004A1073 /* BookmarkTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkTableViewController.swift; sourceTree = "<group>"; };
 		D3EB147423F29FEB004A1073 /* BookmarkCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -52,6 +54,7 @@
 			children = (
 				D3507BD423F84A7B00E0F7D8 /* BookmarkEditViewController.swift */,
 				D3EB147223F29F3C004A1073 /* BookmarkTableViewController.swift */,
+				D3CCB13A23FFC3ED006281AD /* DirectoryTableViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -184,6 +187,7 @@
 				D3952A9823F152BB009FAC83 /* SceneDelegate.swift in Sources */,
 				D3507BD523F84A7B00E0F7D8 /* BookmarkEditViewController.swift in Sources */,
 				D3205B5523FAC95E00BDA493 /* BookmarkModel.swift in Sources */,
+				D3CCB13B23FFC3ED006281AD /* DirectoryTableViewController.swift in Sources */,
 				D3EB147523F29FEB004A1073 /* BookmarkCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -332,6 +336,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = BookmarkApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -340,7 +345,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -352,6 +357,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = BookmarkApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -360,7 +366,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

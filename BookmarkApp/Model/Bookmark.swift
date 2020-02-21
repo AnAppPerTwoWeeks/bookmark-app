@@ -51,11 +51,11 @@ struct Directory: Codable {
         return bookmarks[index]
     }
     
-    mutating func deleteBookmarkFromDirectory(_ index: Int){
+    mutating func deleteBookmark(_ index: Int){
         bookmarks.remove(at: index)
     }
     
-    mutating func addBookmarkToDirectory(_ item: Bookmark) {
+    mutating func addBookmark(_ item: Bookmark) {
         bookmarks.append(item)
     }
 

@@ -16,6 +16,7 @@ class BookmarkTableViewController: UITableViewController {
         super.viewDidLoad()
         self.title = "북마크"
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        tableView.tableFooterView = UIView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -28,15 +29,19 @@ class BookmarkTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
-            return bookmarkModel.directoryArray.count
+            return bookmarkModel.directoryArrayCount
         } else {
-            return bookmarkModel.bookmarkArray.count
+            return bookmarkModel.bookmarkArrayCount
         }
     }
 
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         if indexPath.section == 0 {
-            let swipeAction = UISwipeActionsConfiguration()
+            let removeCell = UIContextualAction(style: .destructive, title: "삭제") { (UIContextualAction, UIView, (Bool) -> Void) in
+                self.bookmarkModel.deleteDirectoryByIndex(indexPath.row)
+                self.tableView.reloadData()
+            }
+            let swipeAction = UISwipeActionsConfiguration(actions: [removeCell])
             swipeAction.performsFirstActionWithFullSwipe = false
             return swipeAction
         } else {
@@ -63,23 +68,24 @@ class BookmarkTableViewController: UITableViewController {
             if let cell = tableView.dequeueReusableCell(withIdentifier: "directoryCell", for: indexPath) as? DirectoryCell {
                 directoryCell = cell
             }
-            directoryCell.update(bookmarkModel.getDirectory(indexPath.row))
+            directoryCell.update(bookmarkModel.getDirectoryAt(indexPath.row))
             return directoryCell
         } else {
             var bookmarkCell = BookmarkCell()
             if let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? BookmarkCell {
-            bookmarkCell = cell
+                bookmarkCell = cell
         }
-            bookmarkCell.update(bookmarkModel.getBookmarkAt(indexPath.row))
+            bookmarkCell.update(bookmarkModel.getBookmarkFromBookmarkArray(indexPath.row))
             return bookmarkCell
         }
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
+            self.performSegue(withIdentifier: "directorySegue", sender: indexPath.row)
             tableView.deselectRow(at: indexPath, animated: true)
         } else {
-            UIPasteboard.general.string = bookmarkModel.getBookmarkAt(indexPath.row).getBookmarkURL()
+            UIPasteboard.general.string = bookmarkModel.getBookmarkFromBookmarkArray(indexPath.row).getBookmarkURL()
               
             let alert = UIAlertController(title: nil, message: "URL이 복사 되었습니다.", preferredStyle: .alert)
             present(alert, animated:true)
@@ -89,6 +95,10 @@ class BookmarkTableViewController: UITableViewController {
             }
             tableView.deselectRow(at: indexPath, animated: true)
         }
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 55
     }
     
     @IBAction func addDirectoryButtonPressed(_ sender: Any) {
@@ -173,6 +183,14 @@ class BookmarkTableViewController: UITableViewController {
                     let indexPath = index
                     editCell.setBookmarkModel(bookmarkModel)
                     editCell.setIndexpath(indexPath)
+                }
+            }
+        } else if segue.identifier == "directorySegue" {
+            if let directoryCell = segue.destination as? DirectoryTableViewController {
+                if let index = sender as? Int {
+                    let indexPath = index
+                    directoryCell.setBookmarkModel(bookmarkModel)
+                    directoryCell.setIndexpath(indexPath)
                 }
             }
         }
