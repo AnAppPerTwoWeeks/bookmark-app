@@ -15,11 +15,10 @@ class BookmarkEditViewController: UIViewController {
     @IBOutlet weak var okButton: UIButton!
     @IBOutlet weak var nameTextfield: UITextField!
     @IBOutlet weak var urlTextfield: UITextField!
-    @IBOutlet weak var directoryLabel: UILabel!
     
-    private var indexpath = 0
+    var indexpath = 0
     
-    private var bookmarkModel: BookmarkModel!
+    var bookmarkModel = BookmarkModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,7 +26,6 @@ class BookmarkEditViewController: UIViewController {
 
         nameLabel.text = "이름"
         urlLabel.text = "URL"
-        directoryLabel.text = "디렉토리"
         okButton.setTitle("확인", for: .normal)
         
         nameTextfield.text = bookmarkModel.getBookmarkFromBookmarkArray(indexpath).getBookmarName()

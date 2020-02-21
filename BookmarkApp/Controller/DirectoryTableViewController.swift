@@ -10,9 +10,9 @@ import UIKit
 
 class DirectoryTableViewController: UITableViewController {
 
-    private var indexpath = 0
+    var indexpath = 0
      
-    private var bookmarkModel: BookmarkModel!
+    var bookmarkModel = BookmarkModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
