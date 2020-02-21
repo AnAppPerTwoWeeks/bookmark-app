@@ -10,8 +10,8 @@ import Foundation
 
 class BookmarkModel {
     
-    var bookmarkArray = [Bookmark]()
-    var directoryArray = [Directory]()
+    private var bookmarkArray = [Bookmark]()
+    private var directoryArray = [Directory]()
     
     var bookmarkArrayCount : Int {
         get {
@@ -32,7 +32,7 @@ class BookmarkModel {
     
 //MARK: - Bookmark Methods
     
-    func getBookmarkAt(_ at: Int) -> Bookmark {
+    func getBookmarkFromBookmarkArray(_ at: Int) -> Bookmark {
         return bookmarkArray[at]
     }
     
@@ -69,8 +69,16 @@ class BookmarkModel {
     
 //MARK: - Directory methods
     
-    func getDirectory(_ at: Int) -> Directory {
+    func getDirectoryAt(_ at: Int) -> Directory {
         return directoryArray[at]
+    }
+    
+    func getBookmarkFromDirectory(_ at: Int) -> [Bookmark] {
+        return directoryArray[at].getItems()
+    }
+    
+    func getDirectoryName(_ at: Int) -> String {
+        return directoryArray[at].getDirectoryName()
     }
     
     func addDirectory(_ name: String) {
@@ -87,8 +95,21 @@ class BookmarkModel {
     }
     
     func appendBookmarkToDirectory(directoryIndex: Int, bookmarkIndex: Int) {
-        directoryArray[directoryIndex].addBookmarkToDirectory(bookmarkArray[bookmarkIndex])
+        directoryArray[directoryIndex].addBookmark(bookmarkArray[bookmarkIndex])
         bookmarkArray.remove(at: bookmarkIndex)
+        setBookmarkArrayToUserDefaults()
+    }
+    
+    func addBookmarkToDirectory(directoryIndex: Int, bookmark: Bookmark) {
+        directoryArray[directoryIndex].addBookmark(bookmark)
+        setDirectoryArrayToUserDefaults()
+        setBookmarkArrayToUserDefaults()
+    }
+    
+    func deleteBookmarkFromDirectory(directoryIndex: Int, bookmarkIndex: Int) {
+        directoryArray[directoryIndex].deleteBookmark(bookmarkIndex)
+        setDirectoryArrayToUserDefaults()
+        
     }
     
     func deleteDirectoryByIndex(_ index: Int) {
@@ -97,6 +118,7 @@ class BookmarkModel {
         }
         directoryArray.remove(at: index)
         setDirectoryArrayToUserDefaults()
+        setBookmarkArrayToUserDefaults()
     }
     
     func setDirectoryArrayToUserDefaults() {
@@ -111,10 +133,5 @@ class BookmarkModel {
                 self.directoryArray = loadedDirectory
             }
         }
-    }
-    
-    func deleteBookmarkFromDirectory(directoryIndex: Int, bookmarkIndex: Int) {
-        bookmarkArray.append(directoryArray[directoryIndex].getBookmark(bookmarkIndex))
-        directoryArray[directoryIndex].deleteBookmarkFromDirectory(bookmarkIndex)
     }
 }

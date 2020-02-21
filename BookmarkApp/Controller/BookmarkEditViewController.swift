@@ -18,19 +18,18 @@ class BookmarkEditViewController: UIViewController {
     
     private var indexpath = 0
     
-    private var bookmarkModel: BookmarkModel!
+    private var bookmarkModel = BookmarkModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.tintColor = .white
-        
+
         nameLabel.text = "이름"
         urlLabel.text = "URL"
         okButton.setTitle("확인", for: .normal)
         
-        nameTextfield.text = bookmarkModel.getBookmarkAt(indexpath).getBookmarName()
-        urlTextfield.text = bookmarkModel.getBookmarkAt(indexpath).getBookmarkURL()
-
+        nameTextfield.text = bookmarkModel.getBookmarkFromBookmarkArray(indexpath).getBookmarName()
+        urlTextfield.text = bookmarkModel.getBookmarkFromBookmarkArray(indexpath).getBookmarkURL()
     }
     
     func setBookmarkModel(_ bookmark: BookmarkModel) {
@@ -43,12 +42,12 @@ class BookmarkEditViewController: UIViewController {
     
     @IBAction func okButtonPressed(_ sender: Any) {
         if (nameTextfield.text == "") || (urlTextfield.text == "") {
-              let notice = UIAlertController(title: nil, message: "모든 텍스트 필드를 입력해주세요.", preferredStyle: .alert)
-              present(notice, animated:true)
+            let notice = UIAlertController(title: nil, message: "모든 텍스트 필드를 입력해주세요.", preferredStyle: .alert)
+            present(notice, animated:true)
             
-              Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { (timer) in
-                  self.dismiss(animated: true, completion: nil)
-              }
+            Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { (timer) in
+                self.dismiss(animated: true, completion: nil)
+            }
         } else {
             if let name = nameTextfield.text , let url = urlTextfield.text {
                 bookmarkModel.editBookmarkAt(indexpath, name: name, url: url)
