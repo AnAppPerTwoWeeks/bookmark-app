@@ -8,17 +8,23 @@
 
 import UIKit
 
-class DirectoryTableViewController: UITableViewController {
-
+class DirectoryTableViewController: UITableViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+    
+    @IBOutlet weak var getBookmarkLabel: UIBarButtonItem!
     private var indexpath = 0
-     
     private var bookmarkModel = BookmarkModel()
+    
+    private var pickerView = UIPickerView()
+    private var alert = UIAlertController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.navigationBar.tintColor = .white
         self.title = bookmarkModel.getDirectoryName(indexpath)
-        tableView.tableFooterView = UIView()
+        getBookmarkLabel.title = "가져오기"
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        tableView.reloadData()
     }
 
     // MARK: - Table view data source
@@ -38,7 +44,7 @@ class DirectoryTableViewController: UITableViewController {
         }
         
         let editCell = UIContextualAction(style: .normal, title: "편집") { (UIContextualAction, UIView, (Bool) -> Void) in
-            self.performSegue("editSegue", indexPath.row)
+            self.performSegue("editDirectoryBookmarkSegue", indexPath.row)
         }
         
         let swipeAction = UISwipeActionsConfiguration(actions: [removeCell, editCell])
@@ -58,13 +64,58 @@ class DirectoryTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        UIPasteboard.general.string = bookmarkModel.getDirectoryAt(indexpath).getBookmark(indexPath.row).getBookmarkURL()
+        
+        let alert = UIAlertController(title: nil, message: "URL이 복사 되었습니다.", preferredStyle: .alert)
+        
+        present(alert, animated:true)
+        
+        Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { (timer) in
+            self.dismiss(animated: true, completion: nil)
+        }
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 80
+        return 55
     }
     
+    //MARK: - UIPicker View data source
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        bookmarkModel.bookmarkArrayCount
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return bookmarkModel.getBookmarkForPicker(row)?.getBookmarkName()
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        bookmarkModel.appendBookmarkToDirectory(directoryIndex: indexpath, bookmarkIndex: row)
+        alert.dismiss(animated: true, completion: nil)
+        tableView.reloadData()
+    }
+    
+        @IBAction func GetBookmarkWithNoDirectoryButtonPressed(_ sender: Any) {
+                  
+            alert = UIAlertController(title: "이동할 북마크를 선택해 주세요.", message: "\n\n\n\n\n\n\n", preferredStyle: .actionSheet)
+                  
+            pickerView = UIPickerView(frame: CGRect(x: 0, y: 50, width: view.frame.size.width - 16 , height: 130))
+            alert.view.addSubview(pickerView)
+            pickerView.dataSource = self
+            pickerView.delegate = self
+            
+            let cancelAction = UIAlertAction(title: "취소", style: .destructive) { (action) in
+            }
+
+            alert.addAction(cancelAction)
+            present(alert, animated: true)
+        }
+
       @IBAction func addBookmarkButtonPressed(_ sender: UIBarButtonItem) {
           
           var nameTextfield = UITextField()
@@ -111,8 +162,7 @@ class DirectoryTableViewController: UITableViewController {
           
           present(alert, animated: true)
       }
-    
-    
+
     func setBookmarkModel(_ bookmark: BookmarkModel) {
         bookmarkModel = bookmark
     }
@@ -122,12 +172,13 @@ class DirectoryTableViewController: UITableViewController {
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "editSegue" {
-            if let editCell = segue.destination as? BookmarkEditViewController {
+        if segue.identifier == "editDirectoryBookmarkSegue" {
+            if let editCell = segue.destination as? DirectoryBookmakrViewController {
                 if let index = sender as? Int {
-                    let indexPath = index
+                    let cellIndexPath = index
                     editCell.setBookmarkModel(bookmarkModel)
-                    editCell.setIndexpath(indexPath)
+                    editCell.setIndexpath(indexpath)
+                    editCell.setCellIndexPath(cellIndexPath)
                 }
             }
         }

@@ -22,7 +22,7 @@ class BookmarkCell: UITableViewCell {
     }
     
     func update(_ item: Bookmark) {
-        nameLabel.text = item.getBookmarName()
+        nameLabel.text = item.getBookmarkName()
         urlLabel.text = item.getBookmarkURL()
     }
 }

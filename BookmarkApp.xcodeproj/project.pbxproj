@@ -19,6 +19,7 @@
 		D3CCB13B23FFC3ED006281AD /* DirectoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CCB13A23FFC3ED006281AD /* DirectoryTableViewController.swift */; };
 		D3EB147323F29F3C004A1073 /* BookmarkTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EB147223F29F3C004A1073 /* BookmarkTableViewController.swift */; };
 		D3EB147523F29FEB004A1073 /* BookmarkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EB147423F29FEB004A1073 /* BookmarkCell.swift */; };
+		D3EEA402240114EF00F200B5 /* DirectoryBookmakrViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EEA401240114EF00F200B5 /* DirectoryBookmakrViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		D3CCB13A23FFC3ED006281AD /* DirectoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryTableViewController.swift; sourceTree = "<group>"; };
 		D3EB147223F29F3C004A1073 /* BookmarkTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkTableViewController.swift; sourceTree = "<group>"; };
 		D3EB147423F29FEB004A1073 /* BookmarkCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkCell.swift; sourceTree = "<group>"; };
+		D3EEA401240114EF00F200B5 /* DirectoryBookmakrViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryBookmakrViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +55,7 @@
 			isa = PBXGroup;
 			children = (
 				D3507BD423F84A7B00E0F7D8 /* BookmarkEditViewController.swift */,
+				D3EEA401240114EF00F200B5 /* DirectoryBookmakrViewController.swift */,
 				D3EB147223F29F3C004A1073 /* BookmarkTableViewController.swift */,
 				D3CCB13A23FFC3ED006281AD /* DirectoryTableViewController.swift */,
 			);
@@ -180,6 +183,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D3EEA402240114EF00F200B5 /* DirectoryBookmakrViewController.swift in Sources */,
 				D3EB147323F29F3C004A1073 /* BookmarkTableViewController.swift in Sources */,
 				D378BA1223F6861300951FC3 /* Bookmark.swift in Sources */,
 				D3952A9623F152BB009FAC83 /* AppDelegate.swift in Sources */,

@@ -16,14 +16,12 @@ enum SectionType: Int {
 class BookmarkTableViewController: UITableViewController {
     
     var bookmarkModel = BookmarkModel()
-    
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "북마크"
+        self.navigationController?.navigationBar.tintColor = .white
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-        tableView.tableFooterView = UIView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -38,42 +36,62 @@ class BookmarkTableViewController: UITableViewController {
         return bookmarkModel.getSectionCount(index: section)
     }
     
-    private func onRemoveAction(indexPath: IndexPath) {
-        if indexPath.row == SectionType.directory.rawValue {
+    private func onRemoveActionByIndexPath(indexPath: IndexPath) {
+        if indexPath.section == SectionType.directory.rawValue {
             self.bookmarkModel.deleteDirectoryByIndex(indexPath.row)
         } else {
             self.bookmarkModel.deleteBookmarkByIndex(indexPath.row)
         }
         self.tableView.reloadData()
-        
     }
 
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let removeCell = UIContextualAction(style: .normal, title: "삭제") { (UIContextualAction, UIView, (Bool) -> Void) in
-            onRemoveAction(indexPath: indexPath)
+        let removeCell = UIContextualAction(style: .destructive, title: "삭제") { (UIContextualAction, UIView, (Bool) -> Void) in
+            self.onRemoveActionByIndexPath(indexPath)
         }
-        if indexPath.section == 0 {
-            let swipeAction = UISwipeActionsConfiguration(actions: [removeCell])
+        if indexPath.section == SectionType.directory.rawValue {
+            let editCell = UIContextualAction(style: .normal, title: "편집") { (UIContextualAction, UIView, (Bool) -> Void) in
+                
+                var nameTextField = UITextField()
+                       
+                let alert = UIAlertController(title: "폴더 이름 변경", message: nil, preferredStyle: .alert)
+                       
+                let cancelAction = UIAlertAction(title: "취소", style: .destructive) { (action) in
+                }
+                       
+                let addAction = UIAlertAction(title: "저장", style: .default) { (action) in
+                    if nameTextField.text != "" {
+                        if let name = nameTextField.text {
+                            self.bookmarkModel.editDirectoryName(indexPath.row, name)
+                            self.tableView.reloadData()
+                        }
+                    }
+                }
+                alert.addTextField { (alertNameTextfield) in
+                    alertNameTextfield.placeholder = "디렉토리의 이름을 입력해 주세요."
+                    nameTextField = alertNameTextfield
+                }
+                alert.addAction(cancelAction)
+                alert.addAction(addAction)
+                       
+                self.present(alert, animated: true)
+            }
+            let swipeAction = UISwipeActionsConfiguration(actions: [removeCell,editCell])
             swipeAction.performsFirstActionWithFullSwipe = false
             return swipeAction
         } else {
-           
-        
-            
             let editCell = UIContextualAction(style: .normal, title: "편집") { (UIContextualAction, UIView, (Bool) -> Void) in
-                self.performSegue("editSegue", indexPath.row)
+            self.performSegue("editBookmarkSegue", indexPath.row)
             }
-            
             let swipeAction = UISwipeActionsConfiguration(actions: [removeCell, editCell])
             swipeAction.performsFirstActionWithFullSwipe = false
-            
+
             return swipeAction
         }
-
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.section == 0 {
+        if indexPath.section == SectionType.directory.rawValue {
             var directoryCell = DirectoryCell()
             if let cell = tableView.dequeueReusableCell(withIdentifier: "directoryCell", for: indexPath) as? DirectoryCell {
                 directoryCell = cell
@@ -84,19 +102,18 @@ class BookmarkTableViewController: UITableViewController {
             var bookmarkCell = BookmarkCell()
             if let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? BookmarkCell {
                 bookmarkCell = cell
-        }
+            }
             bookmarkCell.update(bookmarkModel.getBookmarkFromBookmarkArray(indexPath.row))
             return bookmarkCell
         }
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 0 {
+        if indexPath.section == SectionType.directory.rawValue {
             self.performSegue(withIdentifier: "directorySegue", sender: indexPath.row)
             tableView.deselectRow(at: indexPath, animated: true)
         } else {
             UIPasteboard.general.string = bookmarkModel.getBookmarkFromBookmarkArray(indexPath.row).getBookmarkURL()
-              
             let alert = UIAlertController(title: nil, message: "URL이 복사 되었습니다.", preferredStyle: .alert)
             present(alert, animated:true)
             
@@ -166,7 +183,7 @@ class BookmarkTableViewController: UITableViewController {
                 }
             }
         }
-  
+
         alert.addTextField { (alertNameTextfield) in
             alertNameTextfield.placeholder = "북마크 이름을 입력해 주세요."
             nameTextfield = alertNameTextfield
@@ -187,7 +204,7 @@ class BookmarkTableViewController: UITableViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "editSegue" {
+        if segue.identifier == "editBookmarkSegue" {
             if let editCell = segue.destination as? BookmarkEditViewController {
                 if let index = sender as? Int {
                     let indexPath = index

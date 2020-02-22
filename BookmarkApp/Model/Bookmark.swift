@@ -19,7 +19,7 @@ struct Bookmark : Codable {
         self.url = url
     }
     
-    func getBookmarName() -> String {
+    func getBookmarkName() -> String {
         return name
     }
     
@@ -51,12 +51,20 @@ struct Directory: Codable {
         return bookmarks[index]
     }
     
+    mutating func setDirectoryName(name: String) {
+        self.name = name
+    }
+    
     mutating func deleteBookmark(_ index: Int){
         bookmarks.remove(at: index)
     }
     
     mutating func addBookmark(_ item: Bookmark) {
         bookmarks.append(item)
+    }
+    
+    mutating func setBookmark(_ index: Int, item: Bookmark) {
+        bookmarks[index] = item
     }
 
 }
