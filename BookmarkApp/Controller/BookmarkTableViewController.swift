@@ -6,6 +6,7 @@
 //  Copyright © 2020 AnAppPerTwoWeeks. All rights reserved.
 //
 
+import GoogleMobileAds
 import UIKit
 
 enum SectionType: Int {
@@ -15,13 +16,17 @@ enum SectionType: Int {
 
 class BookmarkTableViewController: UITableViewController {
     
-    var bookmarkModel = BookmarkModel()
+    
 
+    var bookmarkModel = BookmarkModel()
+    var bannerView : GADBannerView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "북마크"
         self.navigationController?.navigationBar.tintColor = .white
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        setupBannerView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -222,4 +227,36 @@ class BookmarkTableViewController: UITableViewController {
             }
         }
     }
+    //MARK: - ADMOB Methods
+    private func setupBannerView() {
+        let adSize = GADAdSizeFromCGSize(CGSize(width: self.view.frame.width, height: 50))
+        bannerView = GADBannerView(adSize: adSize)
+        addBannerViewToView(bannerView)
+        
+        bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+        // 실제 광고단위 ID = ca-app-pub-5869826399158816/8342736055
+        bannerView.rootViewController = self
+        bannerView.load(GADRequest())
+    }
+    
+    func addBannerViewToView(_ bannerView: GADBannerView) {
+      bannerView.translatesAutoresizingMaskIntoConstraints = false
+      view.addSubview(bannerView)
+      view.addConstraints(
+        [NSLayoutConstraint(item: bannerView,
+                            attribute: .bottom,
+                            relatedBy: .equal,
+                            toItem: view.safeAreaLayoutGuide,
+                            attribute: .bottom,
+                            multiplier: 1,
+                            constant: 0),
+         NSLayoutConstraint(item: bannerView,
+                            attribute: .centerX,
+                            relatedBy: .equal,
+                            toItem: view,
+                            attribute: .centerX,
+                            multiplier: 1,
+                            constant: 0)
+        ])
+     }
 }
