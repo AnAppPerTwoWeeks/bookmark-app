@@ -7,7 +7,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Bookmark Table View Controller-->
+        <!--Item-->
         <scene sceneID="5X5-9o-PJQ">
             <objects>
                 <tableViewController id="oAk-2b-H1F" customClass="BookmarkTableViewController" customModule="BookmarkApp" customModuleProvider="target" sceneMemberID="viewController">
@@ -99,9 +99,11 @@
                             <outlet property="delegate" destination="oAk-2b-H1F" id="KYL-1l-pa6"/>
                         </connections>
                     </tableView>
+                    <tabBarItem key="tabBarItem" enabled="NO" title="Item" id="dSI-KV-rGI"/>
+                    <toolbarItems/>
                     <navigationItem key="navigationItem" id="Mzm-1P-vbv">
                         <rightBarButtonItems>
-                            <barButtonItem image="square.and.pencil" catalog="system" id="XWJ-lR-Mj7">
+                            <barButtonItem image="paperclip" catalog="system" id="XWJ-lR-Mj7">
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <action selector="addBookmarkButtonPressed:" destination="oAk-2b-H1F" id="Cso-EJ-VwI"/>
@@ -115,14 +117,15 @@
                             </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <segue destination="wwa-Jz-89o" kind="show" identifier="editSegue" id="3P2-c7-CEs"/>
+                        <segue destination="wwa-Jz-89o" kind="show" identifier="editBookmarkSegue" id="3P2-c7-CEs"/>
                         <segue destination="USp-R9-0zA" kind="show" identifier="directorySegue" id="sHp-a5-8Bh"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="any-lx-3KX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="381" y="-350"/>
+            <point key="canvasLocation" x="429" y="-363"/>
         </scene>
         <!--Bookmark Edit View Controller-->
         <scene sceneID="aV3-Uj-DIc">
@@ -211,7 +214,96 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ROj-Hw-McH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="380" y="418"/>
+            <point key="canvasLocation" x="1642" y="-364"/>
+        </scene>
+        <!--Directory Bookmakr View Controller-->
+        <scene sceneID="c64-bD-B27">
+            <objects>
+                <viewController id="hL3-qz-hg2" customClass="DirectoryBookmakrViewController" customModule="BookmarkApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="vyr-3h-q4J">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gsm-Tk-cgo">
+                                <rect key="frame" x="186" y="421" width="42" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ebs-Wx-TOz">
+                                <rect key="frame" x="57" y="451.5" width="300" height="34"/>
+                                <color key="backgroundColor" red="0.94912236930000005" green="0.9485244155" blue="0.9693283439" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="hxg-t1-lrc"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="linkImage" translatesAutoresizingMaskIntoConstraints="NO" id="hpx-sA-u49">
+                                <rect key="frame" x="157" y="276" width="100" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="HqX-yo-Ezb"/>
+                                    <constraint firstAttribute="width" constant="100" id="gNw-nQ-KNy"/>
+                                </constraints>
+                            </imageView>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="emh-2H-KwO">
+                                <rect key="frame" x="57" y="536" width="300" height="34"/>
+                                <color key="backgroundColor" red="0.94912236930000005" green="0.9485244155" blue="0.9693283439" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="olS-iq-XHZ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label2" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TP0-vb-SvS">
+                                <rect key="frame" x="181.5" y="505.5" width="51.5" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ijh-bO-taB">
+                                <rect key="frame" x="57" y="590" width="300" height="34"/>
+                                <color key="backgroundColor" red="0.44705882349999998" green="0.41176470590000003" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="34" id="cRM-pe-TPU"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="300" id="kuv-6f-fK1"/>
+                                </constraints>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="okButtonPressed:" destination="hL3-qz-hg2" eventType="touchUpInside" id="EXQ-6P-n1A"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.94912236930000005" green="0.9485244155" blue="0.9693283439" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="Gsm-Tk-cgo" firstAttribute="centerX" secondItem="vyr-3h-q4J" secondAttribute="centerX" id="0Ti-Sz-hy1"/>
+                            <constraint firstItem="hpx-sA-u49" firstAttribute="centerX" secondItem="vyr-3h-q4J" secondAttribute="centerX" id="2UK-uf-d6Q"/>
+                            <constraint firstItem="hpx-sA-u49" firstAttribute="top" secondItem="tdl-Kh-jwY" secondAttribute="top" constant="188" id="61u-jf-s46"/>
+                            <constraint firstItem="TP0-vb-SvS" firstAttribute="centerX" secondItem="vyr-3h-q4J" secondAttribute="centerX" id="CmN-kz-MUq"/>
+                            <constraint firstItem="Ijh-bO-taB" firstAttribute="top" secondItem="emh-2H-KwO" secondAttribute="bottom" constant="20" id="MOE-yj-m4A"/>
+                            <constraint firstItem="ebs-Wx-TOz" firstAttribute="centerX" secondItem="vyr-3h-q4J" secondAttribute="centerX" id="Mnb-cU-vaX"/>
+                            <constraint firstItem="Ijh-bO-taB" firstAttribute="centerX" secondItem="vyr-3h-q4J" secondAttribute="centerX" id="VS8-gy-l1A"/>
+                            <constraint firstItem="Gsm-Tk-cgo" firstAttribute="top" secondItem="hpx-sA-u49" secondAttribute="bottom" constant="45" id="m39-Nk-w5V"/>
+                            <constraint firstItem="ebs-Wx-TOz" firstAttribute="top" secondItem="Gsm-Tk-cgo" secondAttribute="bottom" constant="10" id="poT-uA-f8R"/>
+                            <constraint firstItem="emh-2H-KwO" firstAttribute="top" secondItem="TP0-vb-SvS" secondAttribute="bottom" constant="10" id="pp4-Wy-bLm"/>
+                            <constraint firstItem="emh-2H-KwO" firstAttribute="centerX" secondItem="vyr-3h-q4J" secondAttribute="centerX" id="s5V-al-rIH"/>
+                            <constraint firstItem="TP0-vb-SvS" firstAttribute="top" secondItem="ebs-Wx-TOz" secondAttribute="bottom" constant="20" id="x6J-Fo-uln"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="tdl-Kh-jwY"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Oxn-dt-Fy4"/>
+                    <connections>
+                        <outlet property="nameLabel" destination="Gsm-Tk-cgo" id="592-4z-0fx"/>
+                        <outlet property="nameTextfield" destination="ebs-Wx-TOz" id="pVo-F9-pwH"/>
+                        <outlet property="okButton" destination="Ijh-bO-taB" id="2Wc-fu-znY"/>
+                        <outlet property="urlLabel" destination="TP0-vb-SvS" id="7Rp-Ty-f7o"/>
+                        <outlet property="urlTextfield" destination="emh-2H-KwO" id="0Op-CV-6Zp"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Pd5-gL-JaB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1641" y="428"/>
         </scene>
         <!--Directory Table View Controller-->
         <scene sceneID="dOg-aa-yaC">
@@ -274,21 +366,30 @@
                     </tableView>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="2hb-m9-QEk">
-                        <barButtonItem key="rightBarButtonItem" image="square.and.pencil" catalog="system" id="6OJ-tN-JcZ">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <connections>
-                                <action selector="addBookmarkButtonPressed:" destination="USp-R9-0zA" id="B9Q-Ca-ooI"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem image="paperclip" catalog="system" id="6OJ-tN-JcZ">
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <action selector="addBookmarkButtonPressed:" destination="USp-R9-0zA" id="B9Q-Ca-ooI"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Item" id="dBg-19-2Ai">
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <action selector="GetBookmarkWithNoDirectoryButtonPressed:" destination="USp-R9-0zA" id="v5m-BF-NeM"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <segue destination="wwa-Jz-89o" kind="show" identifier="editSegue" id="JGr-m7-LC4"/>
+                        <outlet property="getBookmarkLabel" destination="dBg-19-2Ai" id="XU8-jO-aro"/>
+                        <segue destination="hL3-qz-hg2" kind="show" identifier="editDirectoryBookmarkSegue" id="MwY-G1-L0Q"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4sy-Yb-qs5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-920" y="418"/>
+            <point key="canvasLocation" x="429" y="428"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="v1F-CR-Q5a">
@@ -298,6 +399,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="hpP-lK-0bc">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" red="0.44604432579999997" green="0.41093826290000002" blue="0.87109625339999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="barTintColor" systemColor="systemIndigoColor" red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -308,21 +410,18 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="oAk-2b-H1F" kind="relationship" relationship="rootViewController" id="uKF-A4-xEm"/>
+                        <segue destination="oAk-2b-H1F" kind="relationship" relationship="rootViewController" id="3Ap-oh-scr"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1Je-KP-aSi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-920" y="-350"/>
+            <point key="canvasLocation" x="-794" y="-364"/>
         </scene>
     </scenes>
     <resources>
         <image name="folder.badge.plus" catalog="system" width="64" height="42"/>
         <image name="folderImage" width="256" height="256"/>
         <image name="linkImage" width="256" height="256"/>
-        <image name="square.and.pencil" catalog="system" width="64" height="58"/>
+        <image name="paperclip" catalog="system" width="64" height="64"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="JGr-m7-LC4"/>
-    </inferredMetricsTieBreakers>
 </document>

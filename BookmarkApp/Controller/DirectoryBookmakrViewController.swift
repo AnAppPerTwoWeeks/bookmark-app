@@ -1,14 +1,14 @@
 //
-//  BMEditVC.swift
+//  DirectoryBookmakrViewController.swift
 //  BookmarkApp
 //
-//  Created by 장창순 on 16/02/2020.
+//  Created by 장창순 on 22/02/2020.
 //  Copyright © 2020 AnAppPerTwoWeeks. All rights reserved.
 //
 
 import UIKit
 
-class BookmarkEditViewController: UIViewController {
+class DirectoryBookmakrViewController: UIViewController {
 
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var urlLabel: UILabel!
@@ -17,6 +17,7 @@ class BookmarkEditViewController: UIViewController {
     @IBOutlet weak var urlTextfield: UITextField!
     
     private var indexpath = 0
+    private var cellIndexPath = 0
     
     private var bookmarkModel = BookmarkModel()
     
@@ -27,8 +28,8 @@ class BookmarkEditViewController: UIViewController {
         urlLabel.text = "URL"
         okButton.setTitle("확인", for: .normal)
         
-        nameTextfield.text = bookmarkModel.getBookmarkFromBookmarkArray(indexpath).getBookmarkName()
-        urlTextfield.text = bookmarkModel.getBookmarkFromBookmarkArray(indexpath).getBookmarkURL()
+        nameTextfield.text = bookmarkModel.getDirectoryAt(indexpath).getBookmark(cellIndexPath).getBookmarkName()
+        urlTextfield.text = bookmarkModel.getDirectoryAt(indexpath).getBookmark(cellIndexPath).getBookmarkURL()
     }
     
     func setBookmarkModel(_ bookmark: BookmarkModel) {
@@ -37,6 +38,10 @@ class BookmarkEditViewController: UIViewController {
     
     func setIndexpath(_ index: Int) {
         indexpath = index
+    }
+    
+    func setCellIndexPath(_ index: Int) {
+        cellIndexPath = index
     }
     
     @IBAction func okButtonPressed(_ sender: Any) {
@@ -49,13 +54,9 @@ class BookmarkEditViewController: UIViewController {
             }
         } else {
             if let name = nameTextfield.text , let url = urlTextfield.text {
-                bookmarkModel.editBookmarkAt(indexpath, name: name, url: url)
+                bookmarkModel.editBookmarkInDirectory(directoryIndex: indexpath, bookmarkIndex: cellIndexPath, name: name, url: url)
                 self.navigationController?.popViewController(animated: true)
             }
         }
     }
 }
-
-
-
-
