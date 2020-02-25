@@ -15,7 +15,7 @@ enum SectionType: Int {
 
 class BookmarkTableViewController: UITableViewController {
     
-    var bookmarkModel: BookmarkModel!
+    var bookmarkModel = BookmarkModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -208,7 +208,7 @@ class BookmarkTableViewController: UITableViewController {
             tableView.deselectRow(at: indexPath, animated: true)
         } else {
             UIPasteboard.general.string = bookmarkModel.getBookmarkFromBookmarkArray(indexPath.row).getBookmarkURL()
-            AlertController.Alert(type: .CopiedBookmark, withViewController: self)
+            AlertController.alert(type: .CopiedBookmark, withViewController: self)
             tableView.deselectRow(at: indexPath, animated: true)
         }
     }
