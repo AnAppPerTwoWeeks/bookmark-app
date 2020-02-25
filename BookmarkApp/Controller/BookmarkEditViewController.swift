@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BookmarkEditViewController: UIViewController {
+class BookmarkEditViewController: UIViewController, BookmarkAccessable {
 
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var urlLabel: UILabel!
@@ -18,7 +18,7 @@ class BookmarkEditViewController: UIViewController {
     
     private var indexpath = 0
     
-    private var bookmarkModel = BookmarkModel()
+    private var bookmarkModel: BookmarkModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,13 +29,11 @@ class BookmarkEditViewController: UIViewController {
         
         nameTextfield.text = bookmarkModel.getBookmarkFromBookmarkArray(indexpath).getBookmarkName()
         urlTextfield.text = bookmarkModel.getBookmarkFromBookmarkArray(indexpath).getBookmarkURL()
+        AdmobController.setupBannerView(toViewController: self)
     }
     
-    func setBookmarkModel(_ bookmark: BookmarkModel) {
+    func setBookmarkModel(_ bookmark: BookmarkModel, withIndex index: Int) {
         bookmarkModel = bookmark
-    }
-    
-    func setIndexpath(_ index: Int) {
         indexpath = index
     }
     

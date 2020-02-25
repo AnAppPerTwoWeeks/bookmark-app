@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C32C4C8024056B86004E4550 /* BookmarkAccessable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32C4C7F24056B86004E4550 /* BookmarkAccessable.swift */; };
+		C32C4C8224057598004E4550 /* AdmobController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32C4C8124057598004E4550 /* AdmobController.swift */; };
+		C32C4C8424057885004E4550 /* AlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32C4C8324057885004E4550 /* AlertController.swift */; };
 		D3046E892402F70D00F04BC4 /* Pods_BookmarkApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A2F18E6770DF1C5DA5DFA61 /* Pods_BookmarkApp.framework */; };
 		D3205B5523FAC95E00BDA493 /* BookmarkModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3205B5423FAC95E00BDA493 /* BookmarkModel.swift */; };
 		D331732623FE6C27005151BA /* DirectoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D331732523FE6C27005151BA /* DirectoryCell.swift */; };
@@ -26,6 +29,9 @@
 /* Begin PBXFileReference section */
 		5A20F0CF73864B6868735383 /* Pods-BookmarkApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookmarkApp.debug.xcconfig"; path = "Target Support Files/Pods-BookmarkApp/Pods-BookmarkApp.debug.xcconfig"; sourceTree = "<group>"; };
 		5A2F18E6770DF1C5DA5DFA61 /* Pods_BookmarkApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BookmarkApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C32C4C7F24056B86004E4550 /* BookmarkAccessable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkAccessable.swift; sourceTree = "<group>"; };
+		C32C4C8124057598004E4550 /* AdmobController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdmobController.swift; sourceTree = "<group>"; };
+		C32C4C8324057885004E4550 /* AlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertController.swift; sourceTree = "<group>"; };
 		D3205B5423FAC95E00BDA493 /* BookmarkModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkModel.swift; sourceTree = "<group>"; };
 		D331732523FE6C27005151BA /* DirectoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryCell.swift; sourceTree = "<group>"; };
 		D3507BD423F84A7B00E0F7D8 /* BookmarkEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkEditViewController.swift; sourceTree = "<group>"; };
@@ -64,6 +70,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		C32C4C7E24056B60004E4550 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				C32C4C7F24056B86004E4550 /* BookmarkAccessable.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
 		D3205B5123FAC51100BDA493 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -71,6 +85,8 @@
 				D3EEA401240114EF00F200B5 /* DirectoryBookmakrViewController.swift */,
 				D3EB147223F29F3C004A1073 /* BookmarkTableViewController.swift */,
 				D3CCB13A23FFC3ED006281AD /* DirectoryTableViewController.swift */,
+				C32C4C8124057598004E4550 /* AdmobController.swift */,
+				C32C4C8324057885004E4550 /* AlertController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -115,6 +131,7 @@
 		D3952A9423F152BB009FAC83 /* BookmarkApp */ = {
 			isa = PBXGroup;
 			children = (
+				C32C4C7E24056B60004E4550 /* Protocol */,
 				D3952A9523F152BB009FAC83 /* AppDelegate.swift */,
 				D3952A9723F152BB009FAC83 /* SceneDelegate.swift */,
 				D3205B5323FAC56C00BDA493 /* Model */,
@@ -251,16 +268,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C32C4C8424057885004E4550 /* AlertController.swift in Sources */,
 				D3EEA402240114EF00F200B5 /* DirectoryBookmakrViewController.swift in Sources */,
 				D3EB147323F29F3C004A1073 /* BookmarkTableViewController.swift in Sources */,
 				D378BA1223F6861300951FC3 /* Bookmark.swift in Sources */,
 				D3952A9623F152BB009FAC83 /* AppDelegate.swift in Sources */,
+				C32C4C8024056B86004E4550 /* BookmarkAccessable.swift in Sources */,
 				D331732623FE6C27005151BA /* DirectoryCell.swift in Sources */,
 				D3952A9823F152BB009FAC83 /* SceneDelegate.swift in Sources */,
 				D3507BD523F84A7B00E0F7D8 /* BookmarkEditViewController.swift in Sources */,
 				D3205B5523FAC95E00BDA493 /* BookmarkModel.swift in Sources */,
 				D3CCB13B23FFC3ED006281AD /* DirectoryTableViewController.swift in Sources */,
 				D3EB147523F29FEB004A1073 /* BookmarkCell.swift in Sources */,
+				C32C4C8224057598004E4550 /* AdmobController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -405,18 +425,18 @@
 			baseConfigurationReference = 5A20F0CF73864B6868735383 /* Pods-BookmarkApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = PJ3R7APTJ8;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = BookmarkApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = AnAppPerTwoWeeks.BookmarkApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jcs.bookmarkapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "Bookmark-profile";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -427,18 +447,18 @@
 			baseConfigurationReference = D6A108DCB6C22DBD94ACEC65 /* Pods-BookmarkApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = PJ3R7APTJ8;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = BookmarkApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = AnAppPerTwoWeeks.BookmarkApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jcs.bookmarkapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "Bookmark-profile";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DirectoryBookmakrViewController: UIViewController {
+class DirectoryBookmakrViewController: UIViewController, BookmarkAccessable {
 
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var urlLabel: UILabel!
@@ -19,7 +19,7 @@ class DirectoryBookmakrViewController: UIViewController {
     private var indexpath = 0
     private var cellIndexPath = 0
     
-    private var bookmarkModel = BookmarkModel()
+    private var bookmarkModel: BookmarkModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,13 +30,11 @@ class DirectoryBookmakrViewController: UIViewController {
         
         nameTextfield.text = bookmarkModel.getDirectoryAt(indexpath).getBookmark(cellIndexPath).getBookmarkName()
         urlTextfield.text = bookmarkModel.getDirectoryAt(indexpath).getBookmark(cellIndexPath).getBookmarkURL()
+        AdmobController.setupBannerView(toViewController: self)
     }
     
-    func setBookmarkModel(_ bookmark: BookmarkModel) {
+    func setBookmarkModel(_ bookmark: BookmarkModel, withIndex index: Int) {
         bookmarkModel = bookmark
-    }
-    
-    func setIndexpath(_ index: Int) {
         indexpath = index
     }
     
