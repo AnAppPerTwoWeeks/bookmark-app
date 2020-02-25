@@ -16,8 +16,11 @@ class AdmobController {
         let bannerView = GADBannerView(adSize: adSize)
         addBannerView(bannerView, toViewController: viewController)
 
-        bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
-//        bannerView.adUnitID = "ca-app-pub-5869826399158816/8342736055"
+        #if DEBUG
+            bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+        #else
+            bannerView.adUnitID = "ca-app-pub-5869826399158816/8342736055"
+        #endif
         
         bannerView.rootViewController = viewController
         bannerView.load(GADRequest())

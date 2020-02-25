@@ -13,7 +13,7 @@ enum AlertType {
     case TextfieldCanBeNull, CopiedBookmark
 }
 class AlertController {
-    static func Alert(type: AlertType, withViewController viewController: UIViewController) {
+    static func alert(type: AlertType, withViewController viewController: UIViewController) {
         let alert = UIAlertController(title: nil, message: getAlertMessage(withType: type), preferredStyle: .alert)
         viewController.present(alert, animated:true)
         Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { (timer) in

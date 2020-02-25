@@ -130,7 +130,7 @@ class DirectoryTableViewController: UITableViewController, UIPickerViewDelegate,
                 self.tableView.reloadData()
               }
           } else {
-            AlertController.Alert(type: AlertType.TextfieldCanBeNull, withViewController: self);
+            AlertController.alert(type: AlertType.TextfieldCanBeNull, withViewController: self)
           }
       }
 
