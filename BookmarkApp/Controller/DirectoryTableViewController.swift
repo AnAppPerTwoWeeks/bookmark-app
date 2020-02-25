@@ -8,11 +8,11 @@
 
 import UIKit
 
-class DirectoryTableViewController: UITableViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class DirectoryTableViewController: UITableViewController, UIPickerViewDelegate, UIPickerViewDataSource, BookmarkAccessable {
     
     @IBOutlet weak var getBookmarkLabel: UIBarButtonItem!
     private var indexpath = 0
-    private var bookmarkModel = BookmarkModel()
+    private var bookmarkModel: BookmarkModel!
     
     private var pickerView = UIPickerView()
     private var alert = UIAlertController()
@@ -21,6 +21,7 @@ class DirectoryTableViewController: UITableViewController, UIPickerViewDelegate,
         super.viewDidLoad()
         self.title = bookmarkModel.getDirectoryName(indexpath)
         getBookmarkLabel.title = "가져오기"
+        AdmobController.setupBannerView(toViewController: self)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -100,87 +101,67 @@ class DirectoryTableViewController: UITableViewController, UIPickerViewDelegate,
         tableView.reloadData()
     }
     
-        @IBAction func GetBookmarkWithNoDirectoryButtonPressed(_ sender: Any) {
-                  
-            alert = UIAlertController(title: "이동할 북마크를 선택해 주세요.", message: "\n\n\n\n\n\n\n", preferredStyle: .actionSheet)
-                  
-            pickerView = UIPickerView(frame: CGRect(x: 0, y: 50, width: view.frame.size.width - 16 , height: 130))
-            alert.view.addSubview(pickerView)
-            pickerView.dataSource = self
-            pickerView.delegate = self
-            
-            let cancelAction = UIAlertAction(title: "취소", style: .destructive) { (action) in
-            }
+    @IBAction func GetBookmarkWithNoDirectoryButtonPressed(_ sender: Any) {
+              
+        alert = UIAlertController(title: "이동할 북마크를 선택해 주세요.", message: "\n\n\n\n\n\n\n", preferredStyle: .actionSheet)
+              
+        pickerView = UIPickerView(frame: CGRect(x: 0, y: 50, width: view.frame.size.width - 16 , height: 130))
+        alert.view.addSubview(pickerView)
+        pickerView.dataSource = self
+        pickerView.delegate = self
+        
+        let cancelAction = UIAlertAction(title: "취소", style: .destructive)
+        alert.addAction(cancelAction)
+        present(alert, animated: true)
+    }
 
-            alert.addAction(cancelAction)
-            present(alert, animated: true)
-        }
-
-      @IBAction func addBookmarkButtonPressed(_ sender: UIBarButtonItem) {
-          
-          var nameTextfield = UITextField()
-          var urlTextfield = UITextField()
-          
-          let alert = UIAlertController(title: "북마크 추가", message: nil, preferredStyle: .alert)
-          
-          let cancelAction = UIAlertAction(title: "취소", style: .destructive) { (action) in
-          }
-          
-          let addAction = UIAlertAction(title: "저장", style: .default) { (action) in
-              if (nameTextfield.text != "") && (urlTextfield.text != "") {
-                  if let name = nameTextfield.text , let url = urlTextfield.text {
-                    let bookmark = Bookmark(name: name, url: url)
-                    self.bookmarkModel.addBookmarkToDirectory(directoryIndex: self.indexpath, bookmark: bookmark)
-                    self.tableView.reloadData()
-                  }
-              } else {
-                  let notice = UIAlertController(title: nil, message: "모든 텍스트 필드를 입력해주세요.", preferredStyle: .alert)
-                  self.present(notice, animated:true)
-                  
-                  Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { (timer) in
-                      self.dismiss(animated: true, completion: nil)
-                      self.present(alert, animated:true)
-                  }
+    @IBAction func addBookmarkButtonPressed(_ sender: UIBarButtonItem) {
+      
+      var nameTextfield = UITextField()
+      var urlTextfield = UITextField()
+      
+      let alert = UIAlertController(title: "북마크 추가", message: nil, preferredStyle: .alert)
+      let cancelAction = UIAlertAction(title: "취소", style: .destructive)
+      let addAction = UIAlertAction(title: "저장", style: .default) { (action) in
+          if (nameTextfield.text != "") && (urlTextfield.text != "") {
+              if let name = nameTextfield.text , let url = urlTextfield.text {
+                let bookmark = Bookmark(name: name, url: url)
+                self.bookmarkModel.addBookmarkToDirectory(directoryIndex: self.indexpath, bookmark: bookmark)
+                self.tableView.reloadData()
               }
+          } else {
+            AlertController.Alert(type: AlertType.TextfieldCanBeNull, withViewController: self);
           }
-    
-          alert.addTextField { (alertNameTextfield) in
-              alertNameTextfield.placeholder = "북마크 이름을 입력해 주세요."
-              nameTextfield = alertNameTextfield
-          }
-          
-          alert.addTextField { (alertURLTextfield) in
-              alertURLTextfield.placeholder = "URL을 입력해 주세요."
-              if let copiedText = UIPasteboard.general.string {
-              alertURLTextfield.text = copiedText
-              }
-              urlTextfield = alertURLTextfield
-          }
-          
-          alert.addAction(cancelAction)
-          alert.addAction(addAction)
-          
-          present(alert, animated: true)
       }
 
-    func setBookmarkModel(_ bookmark: BookmarkModel) {
-        bookmarkModel = bookmark
+      alert.addTextField { (alertNameTextfield) in
+          alertNameTextfield.placeholder = "북마크 이름을 입력해 주세요."
+          nameTextfield = alertNameTextfield
+      }
+      
+      alert.addTextField { (alertURLTextfield) in
+          alertURLTextfield.placeholder = "URL을 입력해 주세요."
+          if let copiedText = UIPasteboard.general.string {
+            alertURLTextfield.text = copiedText
+          }
+          urlTextfield = alertURLTextfield
+      }
+      
+      alert.addAction(cancelAction)
+      alert.addAction(addAction)
+      
+      present(alert, animated: true)
     }
-    
-    func setIndexpath(_ index: Int) {
+
+    func setBookmarkModel(_ bookmark: BookmarkModel, withIndex index: Int) {
+        bookmarkModel = bookmark
         indexpath = index
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "editDirectoryBookmarkSegue" {
-            if let editCell = segue.destination as? DirectoryBookmakrViewController {
-                if let index = sender as? Int {
-                    let cellIndexPath = index
-                    editCell.setBookmarkModel(bookmarkModel)
-                    editCell.setIndexpath(indexpath)
-                    editCell.setCellIndexPath(cellIndexPath)
-                }
-            }
+        if let index = sender as? Int, let editCell = segue.destination as? DirectoryBookmakrViewController {
+            editCell.setBookmarkModel(bookmarkModel, withIndex: indexpath)
+            editCell.setCellIndexPath(index)
         }
     }
 }

@@ -6,7 +6,6 @@
 //  Copyright © 2020 AnAppPerTwoWeeks. All rights reserved.
 //
 
-import GoogleMobileAds
 import UIKit
 
 enum SectionType: Int {
@@ -16,15 +15,14 @@ enum SectionType: Int {
 
 class BookmarkTableViewController: UITableViewController {
     
-    var bookmarkModel = BookmarkModel()
-    var bannerView : GADBannerView!
+    var bookmarkModel: BookmarkModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "북마크"
         self.navigationController?.navigationBar.tintColor = .white
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-        setupBannerView()
+        AdmobController.setupBannerView(toViewController: self)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -58,21 +56,23 @@ class BookmarkTableViewController: UITableViewController {
         return 55
     }
     
+    func AlertYouNeedName() {
+    }
+    
     @IBAction func addDirectoryButtonPressed(_ sender: Any) {
         
         var nameTextField = UITextField()
         
         let alert = UIAlertController(title: "폴더 생성", message: nil, preferredStyle: .alert)
-        
-        let cancelAction = UIAlertAction(title: "취소", style: .destructive) { (action) in
-        }
-        
+        let cancelAction = UIAlertAction(title: "취소", style: .destructive)
         let addAction = UIAlertAction(title: "생성", style: .default) { (action) in
-            if nameTextField.text != "" {
-                if let name = nameTextField.text {
-                    self.bookmarkModel.addDirectory(name)
-                    self.tableView.reloadData()
-                }
+            if nameTextField.text == "" {
+                return;
+            }
+            
+            if let name = nameTextField.text {
+                self.bookmarkModel.addDirectory(name)
+                self.tableView.reloadData()
             }
         }
         
@@ -94,16 +94,9 @@ class BookmarkTableViewController: UITableViewController {
         
         let alert = UIAlertController(title: "북마크 추가", message: nil, preferredStyle: .alert)
         
-        let cancelAction = UIAlertAction(title: "취소", style: .destructive) { (action) in
-        }
-        
+        let cancelAction = UIAlertAction(title: "취소", style: .destructive)
         let addAction = UIAlertAction(title: "저장", style: .default) { (action) in
-            if (nameTextfield.text != "") && (urlTextfield.text != "") {
-                if let name = nameTextfield.text , let url = urlTextfield.text {
-                    self.bookmarkModel.addBookmark(name, url: url)
-                    self.tableView.reloadData()
-                }
-            } else {
+            if (nameTextfield.text == "") || (urlTextfield.text == "") {
                 let notice = UIAlertController(title: nil, message: "모든 텍스트 필드를 입력해주세요.", preferredStyle: .alert)
                 self.present(notice, animated:true)
                 
@@ -111,6 +104,10 @@ class BookmarkTableViewController: UITableViewController {
                     self.dismiss(animated: true, completion: nil)
                     self.present(alert, animated:true)
                 }
+            }
+            else if let name = nameTextfield.text , let url = urlTextfield.text {
+                self.bookmarkModel.addBookmark(name, url: url)
+                self.tableView.reloadData()
             }
         }
 
@@ -134,21 +131,9 @@ class BookmarkTableViewController: UITableViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "editBookmarkSegue" {
-            if let editCell = segue.destination as? BookmarkEditViewController {
-                if let index = sender as? Int {
-                    let indexPath = index
-                    editCell.setBookmarkModel(bookmarkModel)
-                    editCell.setIndexpath(indexPath)
-                }
-            }
-        } else if segue.identifier == "directorySegue" {
-            if let directoryCell = segue.destination as? DirectoryTableViewController {
-                if let index = sender as? Int {
-                    let indexPath = index
-                    directoryCell.setBookmarkModel(bookmarkModel)
-                    directoryCell.setIndexpath(indexPath)
-                }
+        if let bookmarkAccessor = segue.destination as? BookmarkAccessable {
+            if let index = sender as? Int {
+                bookmarkAccessor.setBookmarkModel(bookmarkModel, withIndex: index)
             }
         }
     }
@@ -223,46 +208,8 @@ class BookmarkTableViewController: UITableViewController {
             tableView.deselectRow(at: indexPath, animated: true)
         } else {
             UIPasteboard.general.string = bookmarkModel.getBookmarkFromBookmarkArray(indexPath.row).getBookmarkURL()
-            let alert = UIAlertController(title: nil, message: "URL이 복사 되었습니다.", preferredStyle: .alert)
-            present(alert, animated:true)
-            
-            Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { (timer) in
-                self.dismiss(animated: true, completion: nil)
-            }
+            AlertController.Alert(type: .CopiedBookmark, withViewController: self)
             tableView.deselectRow(at: indexPath, animated: true)
         }
     }
-    
-    //MARK: - ADMOB Methods
-    private func setupBannerView() {
-        let adSize = GADAdSizeFromCGSize(CGSize(width: self.view.frame.width, height: 50))
-        bannerView = GADBannerView(adSize: adSize)
-        addBannerViewToView(bannerView)
-
-        bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
-        // 실제 광고단위 ID = ca-app-pub-5869826399158816/8342736055
-        bannerView.rootViewController = self
-        bannerView.load(GADRequest())
-    }
-
-    func addBannerViewToView(_ bannerView: GADBannerView) {
-      bannerView.translatesAutoresizingMaskIntoConstraints = false
-      view.addSubview(bannerView)
-      view.addConstraints(
-        [NSLayoutConstraint(item: bannerView,
-                            attribute: .bottom,
-                            relatedBy: .equal,
-                            toItem: view.safeAreaLayoutGuide,
-                            attribute: .bottom,
-                            multiplier: 1,
-                            constant: 0),
-         NSLayoutConstraint(item: bannerView,
-                            attribute: .centerX,
-                            relatedBy: .equal,
-                            toItem: view,
-                            attribute: .centerX,
-                            multiplier: 1,
-                            constant: 0)
-        ])
-     }
 }
